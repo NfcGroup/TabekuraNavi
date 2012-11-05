@@ -1,5 +1,7 @@
 package jp.nfcgroup.tabekuranavi;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -131,7 +133,7 @@ public class ListActivity extends BaseActivity {
     protected void onUpdateModel(){
         
         //TODO キーワードの取得
-        //TODO DBからの取得
+        //TODO DBからの取得?
         
         onUpdateViews();
     }
@@ -141,6 +143,8 @@ public class ListActivity extends BaseActivity {
      * サブクラスで実装する
      */
     protected void onUpdateViews(){
-        
+        FragmentManager manager = getFragmentManager();
+        Fragment list =  manager.findFragmentById(R.id.fragment_list);
+        Log.d(TAG,(list != null)?"exist":"null");
     }
 }
