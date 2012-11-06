@@ -3,4 +3,5 @@
     android:id="@+id/fragment_list"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:name="jp.nfcgroup.tabekuranavi.fragment.ListFragment" />
+    android:name="jp.nfcgroup.tabekuranavi.fragment.ListFragment"
+    />
