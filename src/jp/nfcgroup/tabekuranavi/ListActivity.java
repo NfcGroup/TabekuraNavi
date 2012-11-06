@@ -1,5 +1,9 @@
 package jp.nfcgroup.tabekuranavi;
 
+import java.io.UnsupportedEncodingException;
+import java.util.Arrays;
+
+import jp.nfcgroup.tabekuranavi.util.NfcUtil;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.PendingIntent;
@@ -13,11 +17,6 @@ import android.os.Parcelable;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.Menu;
-
-import java.io.UnsupportedEncodingException;
-import java.util.Arrays;
-
-import jp.nfcgroup.tabekuranavi.util.NfcUtil;
 
 public class ListActivity extends BaseActivity {
     

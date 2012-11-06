@@ -25,7 +25,6 @@ public class MapActivity extends BaseActivity implements OnClickListener{
         return super.onCreateOptionsMenu(menu);
     }
 
-    @Override
     public void onClick(View v) {
         switch(v.getId()){
             case R.id.button1:
