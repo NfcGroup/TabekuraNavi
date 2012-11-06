@@ -6,9 +6,9 @@ import jp.nfcgroup.tabekuranavi.model.vo.StoreVO;
 
 public class TestModel {
 
-    private static final String[] shopNames = {"“X•Ü‚P","“X•Ü‚Q","“X•Ü‚R"};
+    private static final String[] shopNames = {"åº—èˆ—ï¼‘","åº—èˆ—ï¼’","åº—èˆ—ï¼“"};
     private static final int[] shopWeights = {1,1,2};
-    private static final String[] dishNames = {"V‚µ‚¢—¿—","‚³‚ç‚ÉV‚µ‚¢—¿—","ÅV‚Ì—¿—"};
+    private static final String[] dishNames = {"ã™ã”ã„æ–™ç†","ã‚‚ã£ã¨ã™ã”ã„æ–™ç†","æœ€ã‚‚ã™ã”ã„æ–™ç†"};
     private static final int[] dishPrices = {1,2,3};
     
     public static ArrayList<StoreVO> getTestStores(){

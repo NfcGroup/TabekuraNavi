@@ -41,13 +41,11 @@ public class ListFragment extends Fragment {
         List<List<Map<String,Object>>> children = new ArrayList<List<Map<String,Object>>>();
         
         for(StoreVO store:stores){
-            //êeóvëf
             Map<String,Object> parent = new HashMap<String,Object>();
             parent.put("name",store.name);
             parent.put("weight", String.valueOf(store.weight));
             parents.add(parent);
             
-            //éqóvëf
             List<Map<String,Object>> child = new ArrayList<Map<String,Object>>();
             for(DishVO dish:store.dishes){
                 Map<String,Object> childEntity = new HashMap<String,Object>();
