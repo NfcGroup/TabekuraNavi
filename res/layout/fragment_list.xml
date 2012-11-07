@@ -47,7 +47,7 @@
         android:id="@+id/listView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:divider="@drawable/divider_group"
+        android:dividerHeight="0dp"
         android:childDivider="#ffe69a" >
     </ExpandableListView>
 

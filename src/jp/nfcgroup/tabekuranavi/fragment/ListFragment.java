@@ -41,7 +41,8 @@ public class ListFragment extends Fragment {
         List<List<Map<String,Object>>> children = new ArrayList<List<Map<String,Object>>>();
         
         for(StoreVO store:stores){
-            Map<String,Object> parent = new HashMap<String,Object>();
+            Map<String, Object> parent = new HashMap<String,Object>();
+            parent.put("id",String.valueOf(store.id));
             parent.put("name",store.name);
             parent.put("weight", String.valueOf(store.weight));
             parents.add(parent);
@@ -70,6 +71,7 @@ public class ListFragment extends Fragment {
         listView = (ExpandableListView) getActivity().findViewById(R.id.listView);
         listView.setAdapter(adapter);
         listView.setGroupIndicator(null);
+        listView.setDividerHeight(0);
     }
     
 }

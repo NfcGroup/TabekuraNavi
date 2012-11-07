@@ -1,6 +1,7 @@
 package jp.nfcgroup.tabekuranavi.model.vo;
 
 public class TagVO {
-	public int tagId;
-	public String tagName;
+	public int id;		// タグ識別ID
+	public String name;	// タグ名称
+	public int genreId;		// タグのジャンル識別ID
 }

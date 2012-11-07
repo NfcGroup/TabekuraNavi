@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.SimpleExpandableListAdapter;
 import android.widget.TextView;
 
@@ -18,6 +19,38 @@ public class StoreListAdapter extends SimpleExpandableListAdapter {
 
     private static final String TAG = "StoreListAdapter";
     private Context mContext;
+    
+    private int[] shopIdList = {
+            R.drawable.ic_shop_1,
+            R.drawable.ic_shop_2,
+            R.drawable.ic_shop_3,
+            R.drawable.ic_shop_4,
+            R.drawable.ic_shop_5,
+            R.drawable.ic_shop_6,
+            R.drawable.ic_shop_7,
+            R.drawable.ic_shop_8,
+            R.drawable.ic_shop_9,
+            R.drawable.ic_shop_10,
+            R.drawable.ic_shop_11,
+            R.drawable.ic_shop_12,
+            R.drawable.ic_shop_13,
+            R.drawable.ic_shop_14,
+            R.drawable.ic_shop_15,
+            R.drawable.ic_shop_16,
+            R.drawable.ic_shop_17,
+            R.drawable.ic_shop_18,
+            R.drawable.ic_shop_19,
+            R.drawable.ic_shop_20,
+            R.drawable.ic_shop_21,
+            R.drawable.ic_shop_22,
+            R.drawable.ic_shop_23,
+            R.drawable.ic_shop_24,
+            R.drawable.ic_shop_25,
+            R.drawable.ic_shop_26,
+            R.drawable.ic_shop_27,
+            R.drawable.ic_shop_28,
+            R.drawable.ic_shop_29
+            };
     
     public StoreListAdapter(Context context, List<? extends Map<String, ?>> groupData,
             int groupLayout, String[] groupFrom, int[] groupTo,
@@ -38,15 +71,19 @@ public class StoreListAdapter extends SimpleExpandableListAdapter {
             convertView = inflater.inflate(R.layout.row_group,null);
         }
         
-        Map<String,String> vo = (Map<String, String>) getGroup(groupPosition);
+        Map<String,Object> vo = (Map<String, Object>) getGroup(groupPosition);
         
         TextView titleView = (TextView) convertView.findViewById(R.id.shop_title);
-        titleView.setText(vo.get("name"));
+        titleView.setText(((String)vo.get("name")));
         
+        ImageView shopId = (ImageView) convertView.findViewById(R.id.icon_shop_id);
+        shopId.setImageResource(shopIdList[Integer.parseInt((String) vo.get("id"))-1]);
+        
+        ImageView icon = (ImageView) convertView.findViewById(R.id.icon_arrow);
         if(isExpanded){
-            convertView.setBackgroundColor(Color.parseColor("#ffe69a"));
+            icon.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.ic_expanded));
         }else{
-            convertView.setBackgroundColor(Color.parseColor("#fff3cf"));
+            icon.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.ic_unexpanded));
         }
         
         return convertView;
@@ -67,6 +104,14 @@ public class StoreListAdapter extends SimpleExpandableListAdapter {
         titleView.setText(vo.get("name"));
         TextView priceView = (TextView) convertView.findViewById(R.id.dish_price);
         priceView.setText(vo.get("price")+" rokka");
+        
+        if(childPosition == 0){
+            convertView.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.bg_child_row_top));
+        }else if(isLastChild == true){
+            convertView.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.bg_child_row_bottom));
+        }else{
+            convertView.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.bg_child_row));
+        }
         
         return convertView;
     }

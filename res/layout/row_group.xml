@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:background="@drawable/bg_row" >
+
+    <ImageView
+        android:id="@+id/icon_shop_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="8dp"
+        android:src="@drawable/ic_shop_1" />
+    
+    <TextView
+        android:id="@+id/shop_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="32dp"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:textSize="16sp"
+        android:textColor="#835a1b"
+        android:text="TextView" />
+    
+    <ImageView
+        android:id="@+id/icon_arrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|right"
+        android:layout_marginRight="10dp" />
+
+    
+
+</FrameLayout>
