@@ -1,9 +1,11 @@
 package jp.nfcgroup.tabekuranavi.fragment;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnGroupClickListener;
@@ -13,13 +15,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import jp.nfcgroup.tabekuranavi.MapActivity;
 import jp.nfcgroup.tabekuranavi.R;
 import jp.nfcgroup.tabekuranavi.adapter.StoreListAdapter;
 import jp.nfcgroup.tabekuranavi.model.TestModel;
 import jp.nfcgroup.tabekuranavi.model.vo.DishVO;
 import jp.nfcgroup.tabekuranavi.model.vo.StoreVO;
 
-public class ListFragment extends Fragment {
+public class ListFragment extends Fragment implements OnClickListener {
     
     @SuppressWarnings("unused")
     private static final String TAG = "ListFragment";
@@ -76,8 +79,11 @@ public class ListFragment extends Fragment {
     
     public void updateViews(){
         //TODO Modelデータ引き受け
-        
-        //
+    }
+
+    public void onClick(View v) {
+        Intent intent = new Intent(getActivity().getApplicationContext(),MapActivity.class);
+        getActivity().startActivity(intent);
     }
     
 }

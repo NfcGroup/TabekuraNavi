@@ -3,16 +3,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#FFFFFF" >
-
-    <FrameLayout
+    android:background="#fff3cf" >
+	<FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center|right"
         android:background="@drawable/bg_header" >
 
         <ImageButton
-            android:id="@+id/gotoMapButton"
+            android:id="@+id/change_view_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
@@ -31,37 +30,46 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@drawable/bg_keyword" >
+        android:background="@drawable/bg_tag_holder"
+         >
 
-        <ImageButton
-            android:id="@+id/clearButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="13dp"
-            android:layout_gravity="center_vertical|right"
-            android:background="@drawable/button_clear" />
-
-        <HorizontalScrollView
+        <jp.nfcgroup.tabekuranavi.view.CustomScrollView
             android:id="@+id/horizontalScrollView1"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent"
+            android:overScrollMode="always">
 
             <LinearLayout
                 android:id="@+id/tag_holder"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:gravity="center_vertical|left"
                 android:orientation="horizontal" >
+                
             </LinearLayout>
-        </HorizontalScrollView>
+        </jp.nfcgroup.tabekuranavi.view.CustomScrollView>
 
     </FrameLayout>
-
-    <ExpandableListView
-        android:id="@+id/listView"
+    
+    
+	<FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:dividerHeight="0dp"
-        android:childDivider="#ffe69a" >
-    </ExpandableListView>
+        android:layout_height="match_parent" >
+	    
+	    <ExpandableListView
+	        android:id="@+id/listView"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:dividerHeight="0dp"
+	        android:childDivider="#ffe69a" >
+	    </ExpandableListView>
+
+	    <ImageView
+	        android:id="@+id/imageView2"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:src="@drawable/bg_header_shadow" />
+    
+    </FrameLayout>
 
 </LinearLayout>

@@ -22,7 +22,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	private static final String DB_ASSET = "nfc.db";
 	
 	public DatabaseHelper(Context context) {
-		super(context, DB_NAME, null, 1);
+		super(context, DB_NAME, null, 500000);
 		mContext = context;
 		mDbPath = context.getDatabasePath(DB_NAME).getPath();
 	}
@@ -36,7 +36,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		if(dbExist) {
 			// データベース作成済
 		} else {
-			this.getReadableDatabase();
+			this.getWritableDatabase();
 			try {
 				// assetに格納したデータベースをコピーする
 				copyDatabaseFromAsset();

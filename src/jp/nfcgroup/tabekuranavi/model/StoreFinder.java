@@ -19,7 +19,7 @@ public class StoreFinder {
 	
 	public StoreFinder(Context context) {
 		mKeyword = KeywordData.getInstance();
-		mDatabase = new TabekuraDatabase(context);
+		//mDatabase = new TabekuraDatabase(context);
 	}
 	
 	public void addKeyword(int tagId) {

@@ -31,4 +31,16 @@ public class MapActivity extends BaseActivity implements OnClickListener{
                break;
        }
    }
+    
+    @Override
+    protected void onUpdateTags(String tagId) {
+        // TODO 自動生成されたメソッド・スタブ
+        
+    }
+    
+    @Override
+    protected void onUpdateViews() {
+        // TODO 自動生成されたメソッド・スタブ
+        
+    }
 }

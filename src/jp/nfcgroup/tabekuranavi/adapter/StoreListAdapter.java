@@ -86,6 +86,13 @@ public class StoreListAdapter extends SimpleExpandableListAdapter {
             icon.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.ic_unexpanded));
         }
         
+        Log.d(TAG,"position="+groupPosition+" getGroupCount="+getGroupCount()+" isExpanded="+isExpanded);
+        if(getGroupCount()-1 == groupPosition && isExpanded == false){
+            convertView.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.bg_row_bottom));
+        }else{
+            convertView.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.bg_row));
+        }
+        
         return convertView;
     }
     
