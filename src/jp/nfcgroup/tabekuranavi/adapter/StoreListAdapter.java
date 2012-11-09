@@ -1,8 +1,6 @@
 package jp.nfcgroup.tabekuranavi.adapter;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -63,14 +61,14 @@ public class StoreListAdapter extends SimpleExpandableListAdapter {
     }
 
     @Override
-    public View getGroupView(int groupPosition, boolean isExpanded, View convertView,
-            ViewGroup parent) {
+    public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
         
         if(convertView == null){
             LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.row_group,null);
         }
         
+        @SuppressWarnings("unchecked")
         Map<String,Object> vo = (Map<String, Object>) getGroup(groupPosition);
         
         TextView titleView = (TextView) convertView.findViewById(R.id.shop_title);
@@ -86,7 +84,6 @@ public class StoreListAdapter extends SimpleExpandableListAdapter {
             icon.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.ic_unexpanded));
         }
         
-        Log.d(TAG,"position="+groupPosition+" getGroupCount="+getGroupCount()+" isExpanded="+isExpanded);
         if(getGroupCount()-1 == groupPosition && isExpanded == false){
             convertView.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.bg_row_bottom));
         }else{
@@ -105,6 +102,7 @@ public class StoreListAdapter extends SimpleExpandableListAdapter {
             convertView = inflater.inflate(R.layout.row_child,null);
         }
         
+        @SuppressWarnings("unchecked")
         Map<String,String> vo = (Map<String, String>) getChild(groupPosition, childPosition);
         
         TextView titleView = (TextView) convertView.findViewById(R.id.dish_title);

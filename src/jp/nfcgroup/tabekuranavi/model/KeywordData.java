@@ -7,10 +7,10 @@ import jp.nfcgroup.tabekuranavi.model.vo.TagVO;
 public class KeywordData {
 
 	private static KeywordData keywordData = new KeywordData();
-	private ArrayList<TagVO> _keyword;
+	private ArrayList<TagVO> _keywords;
 	
 	private KeywordData() {
-		super();
+		_keywords = new ArrayList<TagVO>();
 	}
 	
 	public static final KeywordData getInstance() {
@@ -18,14 +18,18 @@ public class KeywordData {
 	}
 	
 	public void addKeyword(TagVO tvo) {
-		_keyword.add(tvo);
+		_keywords.add(tvo);
+	}
+	
+	public void deleteKeyword(int id) {
+		_keywords.remove(id);
 	}
 	
 	public void clearKeyword() {
-		_keyword.clear();
+		_keywords.clear();
 	}
 	
 	public ArrayList<TagVO> getKeywords() {
-		return _keyword;
+		return _keywords;
 	}
 }

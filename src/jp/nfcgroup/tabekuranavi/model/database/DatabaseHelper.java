@@ -92,6 +92,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	}
 	
 	public SQLiteDatabase openTabekuraDatabase() throws IOException {
+		createEmptyDatabase();
 		mDatabase = SQLiteDatabase.openDatabase(mDbPath, null, SQLiteDatabase.OPEN_READONLY);
 		return mDatabase;
 	}

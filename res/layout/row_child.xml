@@ -17,12 +17,11 @@
 
     <TextView
         android:id="@+id/dish_title"
-        android:layout_width="fill_parent"
+        android:layout_width="240dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="38dp"
-    	android:layout_gravity="center"
-    	android:textColor="#835a1b"
-        android:text="TextView" />
+        android:layout_marginLeft="54dp"
+    	android:layout_gravity="left|center_vertical"
+    	android:textColor="#835a1b" />
 
     <TextView
         android:id="@+id/dish_price"
@@ -31,7 +30,6 @@
         android:layout_gravity="center"
         android:layout_marginRight="10dp"
         android:gravity="right"
-        android:textColor="#ba0000"
-        android:text="TextView" />
+        android:textColor="#ba0000" />
 
 </FrameLayout>
