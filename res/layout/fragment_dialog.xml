@@ -8,13 +8,8 @@
     <LinearLayout 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff"
+    android:background="@drawable/dialog_dropshadow"
     android:orientation="vertical" >
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="3dip"
-        android:background="@drawable/bg_header"
-        />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
