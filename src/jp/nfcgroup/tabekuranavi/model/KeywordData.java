@@ -21,8 +21,8 @@ public class KeywordData {
 		_keywords.add(tvo);
 	}
 	
-	public void deleteKeyword(int id) {
-		_keywords.remove(id);
+	public void deleteKeyword(int index) {
+		_keywords.remove(index);
 	}
 	
 	public void clearKeyword() {

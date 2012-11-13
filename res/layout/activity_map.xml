@@ -8,6 +8,11 @@
         android:id="@+id/button1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Button" />
+        android:text="リスト" />
+    
+    <fragment android:id="@+id/fragment_map"
+        android:name="jp.nfcgroup.tabekuranavi.fragment.MapFragment"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"/>
 
 </LinearLayout>

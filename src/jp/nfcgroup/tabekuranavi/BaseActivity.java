@@ -12,18 +12,18 @@ import android.os.Parcelable;
 import android.provider.Settings;
 import android.view.Menu;
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
 import java.util.Arrays;
 
 import jp.nfcgroup.tabekuranavi.model.StoreFinder;
-import jp.nfcgroup.tabekuranavi.model.vo.TagVO;
 import jp.nfcgroup.tabekuranavi.util.NfcUtil;
 import jp.nfcgroup.tabekuranavi.view.KeywordHodler;
 import jp.nfcgroup.tabekuranavi.view.KeywordHodler.KeywordChangedListener;
 
 public abstract class BaseActivity extends Activity implements KeywordChangedListener {
     
-    protected NfcAdapter mNfcAdapter;
+    @SuppressWarnings("unused")
+	private static final String TAG = "BaseActivity";
+	protected NfcAdapter mNfcAdapter;
     protected StoreFinder mStoreFinder;
     protected KeywordHodler mKeywordHolder;
     
@@ -119,14 +119,10 @@ public abstract class BaseActivity extends Activity implements KeywordChangedLis
     }
     
     protected void onUpdateTags(String tagId){
-        mStoreFinder.addKeyword(Integer.parseInt(tagId));
+    	int id = Integer.parseInt(tagId);
+        mStoreFinder.addKeyword(id);
         
-        ArrayList<TagVO> tags = mStoreFinder.getKeywords();
-        
-        mKeywordHolder.clearKeywords();//TODO モデルからTagVOが単体取得できたら修正する
-        for(TagVO tag : tags){
-            mKeywordHolder.addKeyword(tag);
-        }
+        mKeywordHolder.addKeyword(mStoreFinder.getKeyword(id));
     }
 
     abstract protected void onUpdateViews();

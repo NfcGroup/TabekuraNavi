@@ -10,7 +10,7 @@ import android.util.Log;
 
 
 public class TabekuraDatabase {
-	@SuppressWarnings("unused")
+	
 	private static final String TAG = TabekuraDatabase.class.getSimpleName();
 	
 	private final Context mContext;

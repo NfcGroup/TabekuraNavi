@@ -9,10 +9,7 @@ import android.view.View.OnClickListener;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
-import java.util.ArrayList;
-
 import jp.nfcgroup.tabekuranavi.fragment.ListFragment;
-import jp.nfcgroup.tabekuranavi.model.vo.TagVO;
 import jp.nfcgroup.tabekuranavi.view.KeywordHodler;
 
 public class ListActivity extends BaseActivity implements OnClickListener {

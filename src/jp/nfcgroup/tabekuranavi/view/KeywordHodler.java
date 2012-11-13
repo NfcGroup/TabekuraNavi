@@ -12,7 +12,9 @@ import jp.nfcgroup.tabekuranavi.model.vo.TagVO;
 
 public class KeywordHodler implements OnClickListener {
     
-    private Context mContext;
+    @SuppressWarnings("unused")
+	private static final String TAG = null;
+	private Context mContext;
     private KeywordChangedListener mListener;
     private LinearLayout mHolder;
     
@@ -48,7 +50,7 @@ public class KeywordHodler implements OnClickListener {
             
             if(id == tagId){
                 mHolder.removeView(v);
-                return;
+                break;
             }
         }
         

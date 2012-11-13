@@ -83,7 +83,7 @@ public class ListFragment extends Fragment implements OnClickListener {
     
     public void updateViews(){
         
-        ArrayList<StoreVO> stores = mStoreFinder.getStores();
+        ArrayList<StoreVO> stores = mStoreFinder.getAndStores();
         
         parseStores(stores);
     }

@@ -1,7 +1,6 @@
 package jp.nfcgroup.tabekuranavi.adapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +14,8 @@ import jp.nfcgroup.tabekuranavi.R;
 
 public class StoreListAdapter extends SimpleExpandableListAdapter {
 
-    private static final String TAG = "StoreListAdapter";
+    @SuppressWarnings("unused")
+	private static final String TAG = "StoreListAdapter";
     private Context mContext;
     
     private int[] shopIdList = {

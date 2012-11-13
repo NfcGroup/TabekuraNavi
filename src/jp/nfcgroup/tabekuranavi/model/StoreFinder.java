@@ -61,20 +61,39 @@ public class StoreFinder {
 	}
 
 	public void deleteKeyword(int tagId) {
-		mKeyword.deleteKeyword(tagId);
+		ArrayList<TagVO> tags = getKeywords();
+		int size = tags.size();
+		int arrayIndex = 0;
+		
+		for(int i = 0; i < size; i++) {
+			if(tagId == tags.get(i).id) {
+				arrayIndex = i;
+				break;
+			}
+		}
+		mKeyword.deleteKeyword(arrayIndex);
 	}
 	
 	public void clearKeyword() {
 		mKeyword.clearKeyword();
 	}
 	
-	public ArrayList<StoreVO> getStores() {
+	public ArrayList<StoreVO> getAndStores() {
+		return getStores(true);
+	}
+	
+	public ArrayList<StoreVO> getOrStores() {
+		return getStores(false);
+	}
+	
+	public ArrayList<StoreVO> getStores(boolean flag) {
 		int storeId = 0;
 		int sid = 0;
 		int dishId = 0;
 		int did = 0;
 		int storeWeight = 1;
 		int weightCounter = 1;
+		Cursor cursor;
 		
 		// タグIDを取得
 		ArrayList<TagVO> tags = mKeyword.getKeywords();
@@ -106,7 +125,11 @@ public class StoreFinder {
 		}
 		
 		// データベースから該当店舗を取得
-		Cursor cursor = mDatabase.findOrStores(tagIds);
+		if(flag) {
+			cursor = mDatabase.findAndStores(tagIds);
+		} else {
+			cursor = mDatabase.findOrStores(tagIds);
+		}
 		
 		// 店舗情報を作成
 		mStoresInfo.clear();
@@ -161,5 +184,19 @@ public class StoreFinder {
 	
 	public ArrayList<TagVO> getKeywords() {
 		return mKeyword.getKeywords();
+	}
+	
+	public TagVO getKeyword(int tagId) {
+		ArrayList<TagVO> tags = getKeywords();
+		int size = tags.size();
+		int arrayIndex = 0;
+		
+		for(int i = 0; i < size; i++) {
+			if(tagId == tags.get(i).id) {
+				arrayIndex = i;
+				break;
+			}
+		}
+		return tags.get(arrayIndex);
 	}
 }
