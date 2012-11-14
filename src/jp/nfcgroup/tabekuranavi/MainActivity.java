@@ -48,7 +48,12 @@ public class MainActivity extends BaseActivity implements OnClickListener {
     }
     
     protected void onUpdateViews(){
-        mList.updateViews();
+    	Fragment nowFragment = mManager.findFragmentById(R.id.frame_list);
+    	if(nowFragment.equals(mMap)) {
+    		mMap.updateViews();
+    	} else if(nowFragment.equals(mList)) {
+    		mList.updateViews();
+    	}
     }
     
     public void onClick(View v) {
