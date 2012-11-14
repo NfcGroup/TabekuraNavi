@@ -10,12 +10,9 @@ import jp.nfcgroup.tabekuranavi.model.vo.StoreVO;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.view.WindowManager.LayoutParams;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -59,14 +56,16 @@ public class StoreDialogFragment extends DialogFragment {
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
+		/*
 		Dialog dialog = getDialog();
 		WindowManager.LayoutParams lp = dialog.getWindow().getAttributes();
 		DisplayMetrics metrics = getResources().getDisplayMetrics();
 		int dialogWidth = (int)(metrics.widthPixels);
-		//int dialogHeight = (int)(metrics.heightPixels * 0.8);
+		int dialogHeight = (int)(metrics.heightPixels * 0.8);
 		lp.width = dialogWidth;
-		//lp.height = dialogHeight;
-		//dialog.getWindow().setAttributes(lp);
+		lp.height = dialogHeight;
+		dialog.getWindow().setAttributes(lp);
+		 */
 	}
 
 	@Override

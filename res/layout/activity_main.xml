@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#fff3cf" >
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center|right"
+        android:background="@drawable/bg_header" >
+
+        <ImageButton
+            android:id="@+id/change_view_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_gravity="center_vertical|right"
+            android:background="@drawable/button_tomap"/>
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/logo" />
+
+    </FrameLayout>
+
+	<FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/bg_tag_holder"
+         >
+
+        <jp.nfcgroup.tabekuranavi.view.CustomScrollView
+            android:id="@+id/horizontalScrollView1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:overScrollMode="always">
+
+            <LinearLayout
+                android:id="@+id/tag_holder"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical|left"
+                android:orientation="horizontal" >
+                
+            </LinearLayout>
+        </jp.nfcgroup.tabekuranavi.view.CustomScrollView>
+
+    </FrameLayout>
+	
+    <LinearLayout android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/frame_list">
+    </LinearLayout>
+</LinearLayout>
