@@ -7,9 +7,9 @@ import jp.nfcgroup.tabekuranavi.model.vo.DishVO;
 import jp.nfcgroup.tabekuranavi.model.vo.StoreVO;
 import android.content.Context;
 import android.database.Cursor;
-import android.util.Log;
 
 public class StoresData {
+	@SuppressWarnings("unused")
 	private static final String TAG = StoresData.class.getSimpleName();
 
 	private static StoresData mStoresData = new StoresData();
@@ -34,10 +34,11 @@ public class StoresData {
 	 * @return
 	 */
 	public ArrayList<StoreVO> getAllStore(Context context) {
-		Log.d(TAG, "store list size -> "+mStores.size());
+		//Log.d(TAG, "store list size -> "+mStores.size());
 		if(!mInitFlag) initialize(context);
 		
 		//for debug
+		/*
 		Log.w(TAG, "VVVVVVV for debug VVVVVVVV");
 		int size = mStores.size();
 		for(int i = 0; i < size; i++) {
@@ -45,6 +46,7 @@ public class StoresData {
 			Log.i(TAG, String.format("i:%d id:%d name:%s sub:%s weight:%d",
 					i, vo.id, vo.name, vo.subTitle, vo.weight));
 		}
+		*/
 		//for debug
 		
 		return mStores;
@@ -83,8 +85,8 @@ public class StoresData {
 					String str = c.getString(c.getColumnIndex("shop_subtitle"));
 					svo.subTitle = (str != null) ? str : " ";
 					svo.weight = 0;
-					Log.i(TAG, String.format("id:%d name:%s sub:%s weight:%d",
-							svo.id, svo.name, svo.subTitle, svo.weight));
+					//Log.i(TAG, String.format("id:%d name:%s sub:%s weight:%d",
+					//		svo.id, svo.name, svo.subTitle, svo.weight));
 					
 					svo.dishes.clear();
 					dvo.id = c.getInt(c.getColumnIndex("dish_id"));

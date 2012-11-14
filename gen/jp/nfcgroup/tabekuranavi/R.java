@@ -64,40 +64,37 @@ public final class R {
         public static final int logo=0x7f020032;
     }
     public static final class id {
-        public static final int button1=0x7f070001;
-        public static final int button_dialog=0x7f07000f;
-        public static final int change_view_button=0x7f070009;
-        public static final int dialog_arrow=0x7f070003;
-        public static final int dialog_close=0x7f070007;
-        public static final int dialog_dish_name=0x7f070004;
-        public static final int dialog_list=0x7f070008;
-        public static final int dialog_price_value=0x7f070005;
-        public static final int dialog_title=0x7f070006;
-        public static final int dish_price=0x7f070012;
-        public static final int dish_title=0x7f070011;
-        public static final int fragment_list=0x7f070000;
-        public static final int fragment_map=0x7f070002;
-        public static final int horizontalScrollView1=0x7f07000b;
-        public static final int icon_arrow=0x7f070015;
-        public static final int icon_shop_id=0x7f070013;
-        public static final int imageView1=0x7f07000a;
-        public static final int imageView2=0x7f07000e;
-        public static final int listView=0x7f07000d;
-        public static final int menu_settings=0x7f070016;
-        public static final int shop_title=0x7f070014;
-        public static final int tag_holder=0x7f07000c;
-        public static final int text_keyword=0x7f070010;
+        public static final int button_dialog=0x7f07000d;
+        public static final int change_view_button=0x7f070000;
+        public static final int dialog_arrow=0x7f070005;
+        public static final int dialog_close=0x7f070009;
+        public static final int dialog_dish_name=0x7f070006;
+        public static final int dialog_list=0x7f07000a;
+        public static final int dialog_price_value=0x7f070007;
+        public static final int dialog_title=0x7f070008;
+        public static final int dish_price=0x7f070010;
+        public static final int dish_title=0x7f07000f;
+        public static final int frame_list=0x7f070004;
+        public static final int horizontalScrollView1=0x7f070002;
+        public static final int icon_arrow=0x7f070013;
+        public static final int icon_shop_id=0x7f070011;
+        public static final int imageView1=0x7f070001;
+        public static final int imageView2=0x7f07000c;
+        public static final int listView=0x7f07000b;
+        public static final int menu_settings=0x7f070014;
+        public static final int shop_title=0x7f070012;
+        public static final int tag_holder=0x7f070003;
+        public static final int text_keyword=0x7f07000e;
     }
     public static final class layout {
-        public static final int activity_list=0x7f030000;
-        public static final int activity_map=0x7f030001;
-        public static final int dialog_row=0x7f030002;
-        public static final int fragment_dialog=0x7f030003;
-        public static final int fragment_list=0x7f030004;
-        public static final int fragment_map=0x7f030005;
-        public static final int keyword=0x7f030006;
-        public static final int row_child=0x7f030007;
-        public static final int row_group=0x7f030008;
+        public static final int activity_main=0x7f030000;
+        public static final int dialog_row=0x7f030001;
+        public static final int fragment_dialog=0x7f030002;
+        public static final int fragment_list=0x7f030003;
+        public static final int fragment_map=0x7f030004;
+        public static final int keyword=0x7f030005;
+        public static final int row_child=0x7f030006;
+        public static final int row_group=0x7f030007;
     }
     public static final class menu {
         public static final int activity_main=0x7f060000;
@@ -106,6 +103,7 @@ public final class R {
         public static final int app_name=0x7f040000;
         public static final int hello_world=0x7f040001;
         public static final int menu_settings=0x7f040002;
+        public static final int nodata=0x7f040004;
         public static final int title_activity_main=0x7f040003;
     }
     public static final class style {
@@ -113,13 +111,13 @@ public final class R {
         /** 
 	    <item name="android:windowBackground">@drawable/back</item>
 	    <item name="android:background">#ffffff</item>
- <item name="android:colorBackgroundCacheHint">@null</item>
- <item name="android:windowFrame">@null</item>
- <item name="android:windowContentOverlay">@null</item>
- <item name="android:windowIsFloating">true</item>
- <item name="android:backgroundDimEnabled">false</item>
- <item name="android:windowIsTranslucent">false</item>
- <item name="android:windowNoTitle">true</item>
+		<item name="android:colorBackgroundCacheHint">@null</item>
+		<item name="android:windowFrame">@null</item>
+		<item name="android:windowContentOverlay">@null</item>
+		<item name="android:windowIsFloating">true</item>
+		<item name="android:backgroundDimEnabled">false</item>
+		<item name="android:windowIsTranslucent">false</item>
+		<item name="android:windowNoTitle">true</item>
 	    
          */
         public static final int StoreListTheme=0x7f050001;

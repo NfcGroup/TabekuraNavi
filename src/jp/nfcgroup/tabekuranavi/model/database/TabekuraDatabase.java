@@ -6,11 +6,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 
 public class TabekuraDatabase {
-	
+	@SuppressWarnings("unused")
 	private static final String TAG = TabekuraDatabase.class.getSimpleName();
 	
 	private final Context mContext;
@@ -71,7 +70,7 @@ public class TabekuraDatabase {
 		}
 		// SQL文を作成
 		String sqlstr = String.format(SQL_STRING_FIND_STORES, tagCondition);
-		Log.w(TAG, "SQL:"+sqlstr);
+		//Log.i(TAG, "SQL:"+sqlstr);
 		Cursor cursor = mDb.rawQuery(sqlstr, null);
 		return cursor;
 	}

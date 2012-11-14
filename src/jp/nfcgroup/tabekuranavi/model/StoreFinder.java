@@ -7,11 +7,10 @@ import jp.nfcgroup.tabekuranavi.model.vo.StoreVO;
 import jp.nfcgroup.tabekuranavi.model.vo.TagVO;
 import android.content.Context;
 import android.database.Cursor;
-import android.util.Log;
 import android.util.SparseArray;
 
 public class StoreFinder {
-    
+    @SuppressWarnings("unused")
     private static final String TAG = StoreFinder.class.getSimpleName();
 	
 	private Context mContext;
@@ -117,7 +116,7 @@ public class StoreFinder {
 		StoresData sdat = StoresData.getInstance();
 		ArrayList<StoreVO> storeList = sdat.getAllStore(mContext);
 		int listSize = storeList.size();
-		Log.d(TAG, "listSize="+listSize);
+		//Log.d(TAG, "listSize="+listSize);
 		
 		if(size == 0) {
 			// 検索キーワード無しなので、全店舗返す
