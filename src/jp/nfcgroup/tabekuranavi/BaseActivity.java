@@ -1,5 +1,12 @@
 package jp.nfcgroup.tabekuranavi;
 
+import java.io.UnsupportedEncodingException;
+import java.util.Arrays;
+
+import jp.nfcgroup.tabekuranavi.model.StoreFinder;
+import jp.nfcgroup.tabekuranavi.util.NfcUtil;
+import jp.nfcgroup.tabekuranavi.view.KeywordHodler;
+import jp.nfcgroup.tabekuranavi.view.KeywordHodler.KeywordChangedListener;
 import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.Intent;
@@ -9,15 +16,9 @@ import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.os.Vibrator;
 import android.provider.Settings;
 import android.view.Menu;
-import java.io.UnsupportedEncodingException;
-import java.util.Arrays;
-
-import jp.nfcgroup.tabekuranavi.model.StoreFinder;
-import jp.nfcgroup.tabekuranavi.util.NfcUtil;
-import jp.nfcgroup.tabekuranavi.view.KeywordHodler;
-import jp.nfcgroup.tabekuranavi.view.KeywordHodler.KeywordChangedListener;
 
 public abstract class BaseActivity extends Activity implements KeywordChangedListener {
     
@@ -85,6 +86,7 @@ public abstract class BaseActivity extends Activity implements KeywordChangedLis
                 if (action.equals(NfcAdapter.ACTION_NDEF_DISCOVERED) ||
                         action.equals(NfcAdapter.ACTION_TECH_DISCOVERED) ||
                         action.equals(NfcAdapter.ACTION_TAG_DISCOVERED)) {
+                	((Vibrator)getSystemService(VIBRATOR_SERVICE)).vibrate(100);
                     onDiscoverd(intent);
                 }
             }
