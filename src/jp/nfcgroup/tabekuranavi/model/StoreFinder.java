@@ -18,7 +18,6 @@ public class StoreFinder {
 	private TabekuraDatabase mDatabase;
 	private ArrayList<StoreVO> mStores;
 	private SparseArray<Integer> mStoresInfo;
-	private TagVO mTvo;
 	
 	@SuppressWarnings("unused")
 	private static final String[] DUMMY_TAG_DATA = {
@@ -31,18 +30,20 @@ public class StoreFinder {
 		mDatabase = new TabekuraDatabase(context);
 		mStores  = new ArrayList<StoreVO>();
 		mStoresInfo = new SparseArray<Integer>();
-		mTvo = new TagVO();
 	}
 	
-	public void addKeyword(int tagId) {
+	public boolean addKeyword(int tagId) {
+		TagVO tvo = new TagVO();
 		// データベースからタグ情報を取得
 		Cursor cursor = mDatabase.findTag(tagId);
-		cursor.moveToFirst();
-		
-		// タグ情報を作成
-		mTvo.id = tagId;
-		mTvo.name = cursor.getString(cursor.getColumnIndex("tag_name"));
-		mTvo.genreId = cursor.getInt(cursor.getColumnIndex("tag_genre_id"));
+		if(cursor.moveToFirst()) {
+			// タグ情報を作成
+			tvo.id = tagId;
+			tvo.name = cursor.getString(cursor.getColumnIndex("tag_name"));
+			tvo.genreId = cursor.getInt(cursor.getColumnIndex("tag_genre_id"));
+		} else {
+			return false;
+		}
 		
 		cursor.close();
 		// テストデータ
@@ -56,7 +57,13 @@ public class StoreFinder {
 		tvo.genreId = id / 2;
 		*/
 		
-		mKeyword.addKeyword(mTvo);
+		boolean result = checkTagInfo(tvo);
+		
+		if(result) {
+			mKeyword.addKeyword(tvo);
+		}
+		
+		return result;
 	}
 
 	public void deleteKeyword(int tagId) {
@@ -197,5 +204,19 @@ public class StoreFinder {
 			}
 		}
 		return tags.get(arrayIndex);
+	}
+	
+	private boolean checkTagInfo(TagVO tvo) {
+		ArrayList<TagVO> tags = getKeywords();
+		int size = tags.size();
+		boolean check = true;
+		
+		for(int i = 0; i < size; i++) {
+			if(tvo.id == tags.get(i).id) {
+				check = false;
+				break;
+			}
+		}
+		return check;
 	}
 }

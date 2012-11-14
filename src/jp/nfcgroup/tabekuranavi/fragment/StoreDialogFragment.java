@@ -13,11 +13,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class StoreDialogFragment extends DialogFragment {
+public class StoreDialogFragment extends DialogFragment implements View.OnClickListener {
 	private int mStoreId;
 	
 	public static StoreDialogFragment newInstance(int id) {
@@ -40,6 +41,7 @@ public class StoreDialogFragment extends DialogFragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.fragment_dialog, container, false);
 		
+		// ダイアログの内容を生成
 		ListView dialogList = (ListView)view.findViewById(R.id.dialog_list);
 		
 		ArrayList<StoreVO> stores = StoresData.getInstance().getAllStore(getActivity());
@@ -49,6 +51,10 @@ public class StoreDialogFragment extends DialogFragment {
 		ArrayList<DishVO> items = stores.get(mStoreId).dishes;
 		ListAdapter adapter = new StoreDialogAdapter(getActivity(), R.layout.dialog_row, items);
 		dialogList.setAdapter(adapter);
+		
+		// クローズボタン生成
+		ImageButton button = (ImageButton)view.findViewById(R.id.dialog_close);
+		button.setOnClickListener(this);
 		
 		return view;
 	}
@@ -72,5 +78,9 @@ public class StoreDialogFragment extends DialogFragment {
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
 		Dialog dialog = new Dialog(getActivity(), R.style.StoreListTheme);
 		return dialog;
+	}
+	
+	public void onClick(View view) {
+		dismiss();
 	}
 }

@@ -5,5 +5,6 @@
 	<string name="menu_settings">Settings</string>
 	<string name="title_activity_main">MainActivity</string>
 	<string name="nodata">該当データがありません</string>
+	<string name="fail_add_tag_message">無効な検索キーワードです</string>
 
 </resources>

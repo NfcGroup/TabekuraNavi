@@ -39,6 +39,9 @@ public class MapFragment extends Fragment {
         parseStores(stores);
 	}
 	
+	/**
+	 * 事前処理
+	 */
 	private void initialize() {
 		mStoreColors = new SparseArray<StoreColorVO>();
 		
@@ -52,6 +55,10 @@ public class MapFragment extends Fragment {
 		});
 	}
 	
+	/**
+	 * 絞込みされた店舗情報から、店舗ボタンの色一覧データを更新する
+	 * @param stores
+	 */
 	private void parseStores(ArrayList<StoreVO> stores) {
 		int size = mStoreColors.size();
 		int storesCounter = 0;

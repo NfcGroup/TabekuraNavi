@@ -19,6 +19,7 @@ import android.os.Parcelable;
 import android.os.Vibrator;
 import android.provider.Settings;
 import android.view.Menu;
+import android.widget.Toast;
 
 public abstract class BaseActivity extends Activity implements KeywordChangedListener {
     
@@ -122,9 +123,14 @@ public abstract class BaseActivity extends Activity implements KeywordChangedLis
     
     protected void onUpdateTags(String tagId){
     	int id = Integer.parseInt(tagId);
-        mStoreFinder.addKeyword(id);
+        boolean result = mStoreFinder.addKeyword(id);
         
-        mKeywordHolder.addKeyword(mStoreFinder.getKeyword(id));
+        if(result) {
+        	mKeywordHolder.addKeyword(mStoreFinder.getKeyword(id));
+        } else {
+        	Toast.makeText(getApplicationContext(),
+        			R.string.fail_add_tag_message, Toast.LENGTH_SHORT).show();
+        }
     }
 
     abstract protected void onUpdateViews();
