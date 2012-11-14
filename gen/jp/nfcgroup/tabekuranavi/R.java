@@ -81,10 +81,11 @@ public final class R {
         public static final int imageView1=0x7f070001;
         public static final int imageView2=0x7f070005;
         public static final int listView=0x7f07000c;
-        public static final int menu_settings=0x7f070014;
+        public static final int menu_settings=0x7f070015;
         public static final int shop_title=0x7f070012;
         public static final int tag_holder=0x7f070003;
         public static final int text_keyword=0x7f07000e;
+        public static final int toast_text=0x7f070014;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
@@ -95,6 +96,7 @@ public final class R {
         public static final int keyword=0x7f030005;
         public static final int row_child=0x7f030006;
         public static final int row_group=0x7f030007;
+        public static final int toast=0x7f030008;
     }
     public static final class menu {
         public static final int activity_main=0x7f060000;

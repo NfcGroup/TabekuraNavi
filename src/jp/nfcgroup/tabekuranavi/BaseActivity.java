@@ -18,7 +18,9 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.os.Vibrator;
 import android.provider.Settings;
+import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.View;
 import android.widget.Toast;
 
 public abstract class BaseActivity extends Activity implements KeywordChangedListener {
@@ -28,12 +30,16 @@ public abstract class BaseActivity extends Activity implements KeywordChangedLis
 	protected NfcAdapter mNfcAdapter;
     protected StoreFinder mStoreFinder;
     protected KeywordHodler mKeywordHolder;
+    protected Toast mToast;
+    protected LayoutInflater mInflater;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
         mStoreFinder = new StoreFinder(getApplicationContext());
+       	mToast = new Toast(getApplicationContext());
+       	mInflater = getLayoutInflater();
     }
     
     @Override
@@ -128,8 +134,9 @@ public abstract class BaseActivity extends Activity implements KeywordChangedLis
         if(result) {
         	mKeywordHolder.addKeyword(mStoreFinder.getKeyword(id));
         } else {
-        	Toast.makeText(getApplicationContext(),
-        			R.string.fail_add_tag_message, Toast.LENGTH_SHORT).show();
+        	View view = mInflater.inflate(R.layout.toast, null);
+        	mToast.setView(view);
+        	mToast.show();
         }
     }
 
