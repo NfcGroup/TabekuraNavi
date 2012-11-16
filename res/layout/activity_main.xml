@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
             android:layout_gravity="center_vertical|right"
-            android:background="@drawable/button_tomap"/>
+            android:background="@drawable/button_tolist"/>
 
         <ImageView
             android:id="@+id/imageView1"

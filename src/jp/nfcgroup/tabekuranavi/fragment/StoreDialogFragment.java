@@ -46,7 +46,9 @@ public class StoreDialogFragment extends DialogFragment implements View.OnClickL
 		
 		ArrayList<StoreVO> stores = StoresData.getInstance().getAllStore(getActivity());
 		TextView dialogTitle = (TextView)view.findViewById(R.id.dialog_title);
+		TextView dialogSubTitle = (TextView)view.findViewById(R.id.dialog_subtitle);
 		dialogTitle.setText(stores.get(mStoreId).name);
+		dialogSubTitle.setText(stores.get(mStoreId).subTitle);
 		
 		ArrayList<DishVO> items = stores.get(mStoreId).dishes;
 		ListAdapter adapter = new StoreDialogAdapter(getActivity(), R.layout.dialog_row, items);

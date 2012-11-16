@@ -136,6 +136,7 @@ public abstract class BaseActivity extends Activity implements KeywordChangedLis
         } else {
         	View view = mInflater.inflate(R.layout.toast, null);
         	mToast.setView(view);
+        	mToast.setDuration(Toast.LENGTH_LONG);
         	mToast.show();
         }
     }

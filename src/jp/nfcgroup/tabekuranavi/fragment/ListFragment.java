@@ -59,7 +59,7 @@ public class ListFragment extends Fragment {
             List<Map<String,Object>> child = new ArrayList<Map<String,Object>>();
             for(DishVO dish:store.dishes){
                 Map<String,Object> childEntity = new HashMap<String,Object>();
-                childEntity.put("name", dish.name);
+                childEntity.put("name", dish.name.replace("¥n", "\n"));
                 childEntity.put("price", String.valueOf(dish.price));
                 child.add(childEntity);
             }

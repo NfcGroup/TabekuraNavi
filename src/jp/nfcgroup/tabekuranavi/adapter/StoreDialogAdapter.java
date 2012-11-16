@@ -1,10 +1,14 @@
 package jp.nfcgroup.tabekuranavi.adapter;
 
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import jp.nfcgroup.tabekuranavi.R;
 import jp.nfcgroup.tabekuranavi.model.vo.DishVO;
 import android.content.Context;
+import android.os.PatternMatcher;
+import android.text.SpannableString;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +34,7 @@ public class StoreDialogAdapter extends ArrayAdapter<DishVO> {
 		TextView dishName = (TextView)convertView.findViewById(R.id.dialog_dish_name);
 		TextView priceValue = (TextView)convertView.findViewById(R.id.dialog_price_value);
 		
-		dishName.setText(mItems.get(position).name);
+		dishName.setText(mItems.get(position).name.replace("¥n", "\n"));
 		String rokka = String.valueOf(mItems.get(position).price) + " rokka";
 		priceValue.setText(rokka);
 		

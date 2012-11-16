@@ -10,29 +10,34 @@
     	android:layout_height="wrap_content"
     	android:background="@drawable/dialog_dropshadow"
     	android:orientation="vertical" >
-	    <LinearLayout
+	    <RelativeLayout
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
-		    android:paddingTop="15dp"
-		    android:paddingBottom="15dp"
-		    android:gravity="right"
-	        android:orientation="horizontal" >
+		    android:paddingTop="10dp" >
 		    <TextView android:id="@+id/dialog_title"
-		        android:layout_width="0dp"
-		        android:layout_weight="1"
+		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
 		        android:layout_marginLeft="15dp"
-		        android:layout_gravity="left|center_vertical"
-		        android:singleLine="false"
 		        />
 		    <ImageButton android:id="@+id/dialog_close"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
 		        android:layout_marginRight="10dp"
+		        android:layout_centerVertical="true"
+		        android:layout_alignParentRight="true"
 		        android:src="@drawable/button_clear"
 		        android:background="#ffffff"
 		        />
-		</LinearLayout>
+			<TextView android:id="@+id/dialog_subtitle"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:layout_marginLeft="20dp"
+			    android:layout_below="@id/dialog_title"
+			    android:textSize="12sp"
+			    android:paddingTop="5dp"
+			    android:paddingBottom="15dp"
+			    />
+		</RelativeLayout>
 	    <ImageView
 	        android:layout_width="match_parent"
 	        android:layout_height="1dp"
