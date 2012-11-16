@@ -106,6 +106,7 @@ public class TabekuraDatabase {
 	}
 	
 	public void databaseClose() {
+		mDb.close();
 		mDbHelper.close();
 	}
 }

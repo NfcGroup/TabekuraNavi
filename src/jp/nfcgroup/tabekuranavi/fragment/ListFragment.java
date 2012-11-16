@@ -45,6 +45,12 @@ public class ListFragment extends Fragment {
         updateViews();
     }
     
+    @Override
+    public void onPause() {
+    	super.onPause();
+    	//mStoreFinder.databaseClose();
+    }
+    
     private void parseStores(ArrayList<StoreVO> stores){
         List<Map<String,Object>> parents = new ArrayList<Map<String,Object>>();
         List<List<Map<String,Object>>> children = new ArrayList<List<Map<String,Object>>>();
@@ -53,7 +59,7 @@ public class ListFragment extends Fragment {
             Map<String, Object> parent = new HashMap<String,Object>();
             parent.put("id",String.valueOf(store.id));
             parent.put("name",store.name);
-            parent.put("subTitle", store.subTitle);
+            parent.put("subTitle", store.subTitle.replace("¥n", "\n"));
             parent.put("weight", String.valueOf(store.weight));
             parents.add(parent);
             
@@ -83,7 +89,8 @@ public class ListFragment extends Fragment {
     
     public void updateViews(){
         
-        ArrayList<StoreVO> stores = mStoreFinder.getAndStores();
+        //ArrayList<StoreVO> stores = mStoreFinder.getAndStores();
+        ArrayList<StoreVO> stores = mStoreFinder.getOrStores();
         
         parseStores(stores);
     }

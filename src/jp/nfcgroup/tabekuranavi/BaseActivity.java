@@ -104,6 +104,7 @@ public abstract class BaseActivity extends Activity implements KeywordChangedLis
     protected void onPause() {
         super.onPause();
         
+        //mStoreFinder.databaseClose();
         mNfcAdapter.disableForegroundDispatch(this);
     }
     

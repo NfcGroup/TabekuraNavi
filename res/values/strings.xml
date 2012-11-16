@@ -1,7 +1,6 @@
 <resources>
 
-	<string name="app_name">TabekuraNavi</string>
-	<string name="hello_world">Hello world!</string>
+	<string name="app_name">食べくら案内</string>
 	<string name="menu_settings">Settings</string>
 	<string name="title_activity_main">MainActivity</string>
 	<string name="nodata">該当データがありません</string>

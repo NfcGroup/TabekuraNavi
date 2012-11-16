@@ -24,6 +24,7 @@ public class MainActivity extends BaseActivity implements OnClickListener {
     private ListFragment mList;
     private MapFragment mMap;
     private ImageButton mChangeButton;
+    private int mFragmentCase;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,11 +39,17 @@ public class MainActivity extends BaseActivity implements OnClickListener {
         ft.add(R.id.frame_list, mMap);
         ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
         ft.commit();
+        mFragmentCase = 0;
         
         mKeywordHolder = new KeywordHodler(getApplicationContext(),(LinearLayout) findViewById(R.id.tag_holder),this);
         
         mChangeButton = (ImageButton) findViewById(R.id.change_view_button);
         mChangeButton.setOnClickListener(this);
+    }
+    
+    @Override
+    public void onResume() {
+    	super.onResume();
     }
     
     @Override
@@ -53,15 +60,16 @@ public class MainActivity extends BaseActivity implements OnClickListener {
     @Override
 	public boolean onTouchEvent(MotionEvent event) {
     	boolean result = super.onTouchEvent(event);
-    	mMap.execute(event);
+    	if(mFragmentCase == 0) {
+    		mMap.execute(event);
+    	}
     	return result;
 	}
 
 	protected void onUpdateViews(){
-    	Fragment nowFragment = mManager.findFragmentById(R.id.frame_list);
-    	if(nowFragment.equals(mMap)) {
+    	if(mFragmentCase == 0) {
     		mMap.updateViews();
-    	} else if(nowFragment.equals(mList)) {
+    	} else if(mFragmentCase == 1) {
     		mList.updateViews();
     	}
     }
@@ -82,8 +90,10 @@ public class MainActivity extends BaseActivity implements OnClickListener {
     	// 画面切替ボタンの画像入れ替え
     	if(nowFragment.equals(mMap)) {
     		mChangeButton.setBackgroundResource(R.drawable.button_tomap);
+    		mFragmentCase = 1;
     	} else if(nowFragment.equals(mList)) {
     		mChangeButton.setBackgroundResource(R.drawable.button_tolist);
+    		mFragmentCase = 0;
     	}
     }
 }

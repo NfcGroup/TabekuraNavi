@@ -4,6 +4,16 @@
     android:layout_height="match_parent"
     android:background="#fff3cf" >
     
+   	<TextView
+		android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+		android:id="@+id/android:empty"
+		android:layout_margin="8dp"
+		android:textSize="16sp"
+		android:textColor="#ba0000"
+        android:text="検索結果が見当たりませんでした">
+	</TextView>
+	 
 	<ExpandableListView
 	    android:id="@+id/listView"
 	    android:layout_width="match_parent"

@@ -40,14 +40,12 @@
             android:layout_height="match_parent"
             android:overScrollMode="never">
 
-            <LinearLayout
+            <jp.nfcgroup.tabekuranavi.view.KeywordHolderInner
                 android:id="@+id/tag_holder"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical|left"
-                android:orientation="horizontal" >
-                
-            </LinearLayout>
+                android:orientation="horizontal" />
         </jp.nfcgroup.tabekuranavi.view.CustomScrollView>
 
     </FrameLayout>
