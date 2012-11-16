@@ -3,11 +3,13 @@ package jp.nfcgroup.tabekuranavi;
 import jp.nfcgroup.tabekuranavi.fragment.ListFragment;
 import jp.nfcgroup.tabekuranavi.fragment.MapFragment;
 import jp.nfcgroup.tabekuranavi.view.KeywordHodler;
+import jp.nfcgroup.tabekuranavi.view.MapGestureSurfaceView;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
@@ -48,7 +50,14 @@ public class MainActivity extends BaseActivity implements OnClickListener {
         return super.onCreateOptionsMenu(menu);
     }
     
-    protected void onUpdateViews(){
+    @Override
+	public boolean onTouchEvent(MotionEvent event) {
+    	boolean result = super.onTouchEvent(event);
+    	mMap.execute(event);
+    	return result;
+	}
+
+	protected void onUpdateViews(){
     	Fragment nowFragment = mManager.findFragmentById(R.id.frame_list);
     	if(nowFragment.equals(mMap)) {
     		mMap.updateViews();

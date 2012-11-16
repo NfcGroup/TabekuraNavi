@@ -104,4 +104,8 @@ public class TabekuraDatabase {
 	public Cursor fetchAllStores() {
 		return mDb.rawQuery(SQL_STRING_ALL_STORES, null);
 	}
+	
+	public void databaseClose() {
+		mDbHelper.close();
+	}
 }

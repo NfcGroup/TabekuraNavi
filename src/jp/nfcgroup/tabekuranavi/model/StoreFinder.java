@@ -206,6 +206,10 @@ public class StoreFinder {
 		return tags.get(arrayIndex);
 	}
 	
+	public void databaseClose() {
+		mDatabase.databaseClose();
+	}
+	
 	private boolean checkTagInfo(TagVO tvo) {
 		ArrayList<TagVO> tags = getKeywords();
 		int size = tags.size();

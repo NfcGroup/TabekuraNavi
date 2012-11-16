@@ -6,18 +6,20 @@ import jp.nfcgroup.tabekuranavi.R;
 import jp.nfcgroup.tabekuranavi.model.StoreColorVO;
 import jp.nfcgroup.tabekuranavi.model.StoreFinder;
 import jp.nfcgroup.tabekuranavi.model.vo.StoreVO;
+import jp.nfcgroup.tabekuranavi.view.MapGestureSurfaceView;
 import android.app.Fragment;
+import android.graphics.RectF;
 import android.os.Bundle;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 public class MapFragment extends Fragment {
 	private StoreFinder mStoreFinder;
 	private SparseArray<StoreColorVO> mStoreColors;
+	private MapGestureSurfaceView mMapGestureSurfaceView;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -43,8 +45,11 @@ public class MapFragment extends Fragment {
 	 * 事前処理
 	 */
 	private void initialize() {
+        //mStoreFinder = new StoreFinder(getActivity().getApplicationContext());
 		mStoreColors = new SparseArray<StoreColorVO>();
+		mMapGestureSurfaceView = (MapGestureSurfaceView)getActivity().findViewById(R.id.surfaceView);
 		
+		/*
 		Button dialogButton = (Button)getActivity().findViewById(R.id.button_dialog);
 		dialogButton.setOnClickListener(new OnClickListener() {
 			
@@ -53,6 +58,7 @@ public class MapFragment extends Fragment {
 				sdialog.show(getFragmentManager(), "dialog");
 			}
 		});
+		*/
 	}
 	
 	/**
@@ -102,5 +108,66 @@ public class MapFragment extends Fragment {
 			break;
 		}
 		return scvo;
+	}
+	
+	public void execute(MotionEvent event) {
+		
+		if( event.getPointerCount() == 1){
+			//ドラッグ
+			switch(event.getAction() & MotionEvent.ACTION_MASK)
+			{
+				case MotionEvent.ACTION_DOWN:
+					
+		    	    RectF[] hitRects = mMapGestureSurfaceView._shopHitRects;
+		    	    int paddingTop = 200;//TODO padding調整
+		    	    
+		    		for (int i = 0; i < hitRects.length; i++) {
+		    			if(hitRects[i].contains((int)event.getX(), (int)event.getY() - paddingTop) == true){
+		    				//ダイアログ表示
+		    				
+		    				StoreDialogFragment sdialog = StoreDialogFragment.newInstance(i);
+		    				sdialog.show(getFragmentManager(), "dialog");
+		    		
+		    				return;
+		        		}
+					}
+		    		
+		     		//ドラッグ開始
+	        		mMapGestureSurfaceView.startDrag(event);
+	       				
+					break;
+		
+				//ドラッグ中
+				case MotionEvent.ACTION_MOVE:
+					mMapGestureSurfaceView.moveDrag(event);
+					break;
+					
+				//ドラッグ終了
+				case	MotionEvent.ACTION_UP:
+					mMapGestureSurfaceView.endDrag(event);
+					break;
+			}
+		}else{
+		    //ピンチイン・アウト
+			switch(event.getAction() & MotionEvent.ACTION_MASK)
+			{
+				//ピンチ開始
+				case MotionEvent.ACTION_POINTER_DOWN:
+					mMapGestureSurfaceView.startPinch(event);
+					break;
+		
+				//ピンチ中
+				case MotionEvent.ACTION_MOVE:
+					mMapGestureSurfaceView.movePinch(event);
+					break;
+		
+				//ピンチ終了
+				case MotionEvent.ACTION_UP:
+				case MotionEvent.ACTION_POINTER_UP:
+					mMapGestureSurfaceView.endPinch(event);
+					break;
+			 }
+		}
+	
 	}
 }

@@ -62,10 +62,10 @@ public final class R {
         public static final int ic_unexpanded=0x7f020030;
         public static final int icon=0x7f020031;
         public static final int logo=0x7f020032;
-        public static final int toast_box=0x7f020033;
+        public static final int map=0x7f020033;
+        public static final int toast_box=0x7f020034;
     }
     public static final class id {
-        public static final int button_dialog=0x7f07000e;
         public static final int change_view_button=0x7f070000;
         public static final int dialog_arrow=0x7f070006;
         public static final int dialog_close=0x7f07000a;
@@ -86,6 +86,7 @@ public final class R {
         public static final int menu_settings=0x7f070017;
         public static final int shop_subtitle=0x7f070014;
         public static final int shop_title=0x7f070013;
+        public static final int surfaceView=0x7f07000e;
         public static final int tag_holder=0x7f070003;
         public static final int text_keyword=0x7f07000f;
         public static final int toast_text=0x7f070016;

@@ -12,14 +12,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
     	android:layout_gravity="center_vertical"
-    	android:layout_marginLeft="32dp"
+    	android:layout_marginLeft="44dp"
         android:src="@drawable/ic_arrow" />
 
     <TextView
         android:id="@+id/dish_title"
         android:layout_width="240dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="54dp"
+        android:layout_marginLeft="66dp"
     	android:layout_gravity="left|center_vertical"
     	android:textColor="#835a1b" />
 
@@ -28,7 +28,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginRight="10dp"
+        android:layout_marginRight="20dp"
         android:gravity="right"
         android:textColor="#ba0000" />
 
