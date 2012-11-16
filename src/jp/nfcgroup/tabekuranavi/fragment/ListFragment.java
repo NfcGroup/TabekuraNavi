@@ -53,6 +53,7 @@ public class ListFragment extends Fragment {
             Map<String, Object> parent = new HashMap<String,Object>();
             parent.put("id",String.valueOf(store.id));
             parent.put("name",store.name);
+            parent.put("subTitle", store.subTitle);
             parent.put("weight", String.valueOf(store.weight));
             parents.add(parent);
             
@@ -69,9 +70,9 @@ public class ListFragment extends Fragment {
         StoreListAdapter adapter = new StoreListAdapter(
                 getActivity(),
                 parents, 
-                android.R.layout.simple_expandable_list_item_1,
-                new String[] {"name"},
-                new int[] { android.R.id.text1 },
+                android.R.layout.simple_expandable_list_item_2,
+                new String[] {"name", "subTitle"},
+                new int[] { android.R.id.text1, android.R.id.text2 },
                 children,
                 android.R.layout.simple_expandable_list_item_2,
                 new String[] {"name", "price"},

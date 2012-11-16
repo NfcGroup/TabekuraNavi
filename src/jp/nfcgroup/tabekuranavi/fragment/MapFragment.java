@@ -49,7 +49,7 @@ public class MapFragment extends Fragment {
 		dialogButton.setOnClickListener(new OnClickListener() {
 			
 			public void onClick(View v) {
-				StoreDialogFragment sdialog = StoreDialogFragment.newInstance(14);
+				StoreDialogFragment sdialog = StoreDialogFragment.newInstance(16);
 				sdialog.show(getFragmentManager(), "dialog");
 			}
 		});

@@ -78,16 +78,17 @@ public final class R {
         public static final int dish_title=0x7f070010;
         public static final int frame_list=0x7f070004;
         public static final int horizontalScrollView1=0x7f070002;
-        public static final int icon_arrow=0x7f070014;
+        public static final int icon_arrow=0x7f070015;
         public static final int icon_shop_id=0x7f070012;
         public static final int imageView1=0x7f070001;
         public static final int imageView2=0x7f070005;
         public static final int listView=0x7f07000d;
-        public static final int menu_settings=0x7f070016;
+        public static final int menu_settings=0x7f070017;
+        public static final int shop_subtitle=0x7f070014;
         public static final int shop_title=0x7f070013;
         public static final int tag_holder=0x7f070003;
         public static final int text_keyword=0x7f07000f;
-        public static final int toast_text=0x7f070015;
+        public static final int toast_text=0x7f070016;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;

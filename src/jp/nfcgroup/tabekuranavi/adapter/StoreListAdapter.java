@@ -74,6 +74,9 @@ public class StoreListAdapter extends SimpleExpandableListAdapter {
         TextView titleView = (TextView) convertView.findViewById(R.id.shop_title);
         titleView.setText(((String)vo.get("name")));
         
+        TextView subTitleView = (TextView) convertView.findViewById(R.id.shop_subtitle);
+        subTitleView.setText(((String)vo.get("subTitle")));
+        
         ImageView shopId = (ImageView) convertView.findViewById(R.id.icon_shop_id);
         shopId.setImageResource(shopIdList[Integer.parseInt((String) vo.get("id"))-1]);
         
