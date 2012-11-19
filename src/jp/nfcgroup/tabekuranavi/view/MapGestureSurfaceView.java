@@ -180,7 +180,7 @@ public class MapGestureSurfaceView extends SurfaceView implements SurfaceHolder.
     	int		nViewWidth = getWidth();
 		int		nViewHeight = getHeight();
 
-		if(_bmMap == null)
+		if(_bmMap == null || canvas == null)
 			return;
 
 		canvas.save();
@@ -190,7 +190,7 @@ public class MapGestureSurfaceView extends SurfaceView implements SurfaceHolder.
 		_fMoveX = -nViewWidth  + _fDragMoveX + _fOriginX;
 		_fMoveY = -nViewHeight + _fDragMoveY + _fOriginY;
 
-		Log.v("_fMoveX","_fMoveX" + _fMoveX);
+		//Log.v("_fMoveX","_fMoveX" + _fMoveX);
 
 		//ズーム原点指定
 		//_fMoveX += _ptPinchStart.x - _ptPinchStart.x * _mapScale;
@@ -203,6 +203,11 @@ public class MapGestureSurfaceView extends SurfaceView implements SurfaceHolder.
 			_fOriginX = 0.0f;
 			_fOriginY = 0.0f;
 		}
+		
+		//最大マップ
+		if(_mapScale > 2.0f) {
+			_mapScale = 2.0f;
+		}
 
 		Matrix	matrix = new Matrix();
 		matrix.postTranslate(_fMoveX + nViewWidth/2, _fMoveY + nViewHeight/2);	//移動
@@ -211,7 +216,7 @@ public class MapGestureSurfaceView extends SurfaceView implements SurfaceHolder.
 
 
 		//描画
-		canvas.drawColor(Color.argb(255, 255, 235, 207));
+		//canvas.drawColor(Color.argb(255, 255, 235, 207));
 		canvas.drawBitmap(_bmMap, matrix, null);
 
 		//店舗

@@ -36,10 +36,10 @@ public class MainActivity extends BaseActivity implements OnClickListener {
         
         mMap = new MapFragment();
         mList = new ListFragment();
-        ft.add(R.id.frame_list, mMap);
+        ft.add(R.id.frame_list, mList);
         ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
         ft.commit();
-        mFragmentCase = 0;
+        mFragmentCase = 1;
         
         mKeywordHolder = new KeywordHodler(getApplicationContext(),(LinearLayout) findViewById(R.id.tag_holder),this);
         

@@ -53,7 +53,7 @@ public class MapFragment extends Fragment {
 	public void updateViews() {
         ArrayList<StoreVO> stores = mStoreFinder.getOrStores();
         parseStores(stores);
-		mMapGestureSurfaceView.updateColors(mStoreColors);
+		//mMapGestureSurfaceView.updateColors(mStoreColors);
 		mMapGestureSurfaceView.doDraw(mStoreColors);
 	}
 	
