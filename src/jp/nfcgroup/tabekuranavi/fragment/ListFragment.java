@@ -24,7 +24,6 @@ public class ListFragment extends Fragment {
     private static final String TAG = "ListFragment";
     
     private ExpandableListView mListView;
-    private StoreFinder mStoreFinder;
     
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -36,7 +35,7 @@ public class ListFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         
-        mStoreFinder = new StoreFinder(getActivity().getApplicationContext());
+        
         
         mListView = (ExpandableListView) getActivity().findViewById(R.id.listView);
         mListView.setGroupIndicator(null);
@@ -88,9 +87,9 @@ public class ListFragment extends Fragment {
     }
     
     public void updateViews(){
-        
-        //ArrayList<StoreVO> stores = mStoreFinder.getAndStores();
-        ArrayList<StoreVO> stores = mStoreFinder.getOrStores();
+        StoreFinder mStoreFinder = new StoreFinder(getActivity().getApplicationContext());
+        ArrayList<StoreVO> stores = mStoreFinder.getAndStores();
+        mStoreFinder.databaseClose();
         
         parseStores(stores);
     }

@@ -19,7 +19,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 public class MapFragment extends Fragment {
-	private StoreFinder mStoreFinder;
 	private SparseArray<StoreColorVO> mStoreColors;
 	private MapGestureSurfaceView mMapGestureSurfaceView;
 
@@ -33,7 +32,7 @@ public class MapFragment extends Fragment {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		
-        mStoreFinder = new StoreFinder(getActivity().getApplicationContext());
+        
         initialize();
         updateViews();
 	}
@@ -51,10 +50,12 @@ public class MapFragment extends Fragment {
 	}
 	
 	public void updateViews() {
+	    StoreFinder mStoreFinder = new StoreFinder(getActivity().getApplicationContext());
         ArrayList<StoreVO> stores = mStoreFinder.getOrStores();
         parseStores(stores);
+        mStoreFinder.databaseClose();
 		//mMapGestureSurfaceView.updateColors(mStoreColors);
-		mMapGestureSurfaceView.doDraw(mStoreColors);
+
 	}
 	
 	/**
@@ -126,7 +127,7 @@ public class MapFragment extends Fragment {
 		}
 		return scvo;
 	}
-	
+	/*
 	public void execute(MotionEvent event) {
 		
 		if( event.getPointerCount() == 1){
@@ -186,4 +187,5 @@ public class MapFragment extends Fragment {
 			 }
 		}
 	}
+	*/
 }

@@ -56,15 +56,6 @@ public class MainActivity extends BaseActivity implements OnClickListener {
     public boolean onCreateOptionsMenu(Menu menu) {
         return super.onCreateOptionsMenu(menu);
     }
-    
-    @Override
-	public boolean onTouchEvent(MotionEvent event) {
-    	boolean result = super.onTouchEvent(event);
-    	if(mFragmentCase == 0) {
-    		mMap.execute(event);
-    	}
-    	return result;
-	}
 
 	protected void onUpdateViews(){
     	if(mFragmentCase == 0) {
@@ -83,7 +74,7 @@ public class MainActivity extends BaseActivity implements OnClickListener {
     	} else if(nowFragment.equals(mList)) {
     		ft.replace(R.id.frame_list, mMap);
     	}
-    	ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+    	ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
     	ft.addToBackStack(null);
     	ft.commit();
     	
