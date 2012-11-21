@@ -166,22 +166,32 @@ public class MapGestureSurfaceView extends SurfaceView implements SurfaceHolder.
     }
     
     private void onDrag(float velocityX,float velocityY){
+        
+        RectF frame = new RectF(mMapOffset.x,
+                mMapOffset.y,
+                mMapImage.getIntrinsicWidth()+mMapOffset.x,
+                mMapImage.getIntrinsicHeight()+mMapOffset.y);
+        mMapMatrix.mapRect(frame);
+        
+        Log.d(TAG,frame.toShortString());
+        
         int x = mMapOffset.x + (int)velocityX;
-        int minX = (int) (mScreenWidth - mMapImage.getIntrinsicWidth() * mMapScale);
-        int maxX = 0;
+        int rightX = (int) (mScreenWidth - frame.right);
+        int leftX = (int) frame.left;
+        if(leftX < 0) leftX = 0;
         //Log.d(TAG,"x="+x+" minX="+minX+" maxX="+maxX);
-        if(x < minX || x > maxX)velocityX = 0;
+        if(x < rightX || x > leftX)velocityX = 0;
         
         int y = mMapOffset.y + (int)velocityY;
-        int minY = (int) (mScreenHeight - mMapImage.getIntrinsicHeight() * mMapScale);
-        int maxY = 0;
+        int bottomY = (int) (mScreenHeight - frame.bottom);
+        int topY = (int) frame.top;
+        if(topY < 0) topY = 0;
         //Log.d(TAG,"y="+y+" minY="+minY+" maxY="+maxY);
-        if(y < minY || y > maxY)velocityY = 0;
+        if(y < bottomY || y > topY)velocityY = 0;
         
         mMapOffset.x += (int)velocityX;
         mMapOffset.y += (int)velocityY;
         
-        //mMapMatrix.postTranslate(velocityX, velocityY);
     }
     
     private void onPinch(float scale,PointF center){
@@ -189,6 +199,8 @@ public class MapGestureSurfaceView extends SurfaceView implements SurfaceHolder.
         if(tempScale > 2 || tempScale < 1) scale = 1.0f;
         
         mMapScale *= scale;
+        
+        
         
         mMapMatrix.postScale(scale, scale, center.x, center.y);
         
