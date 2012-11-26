@@ -36,7 +36,6 @@ public class ListFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         
         
-        
         mListView = (ExpandableListView) getActivity().findViewById(R.id.listView);
         mListView.setGroupIndicator(null);
         mListView.setDividerHeight(0);

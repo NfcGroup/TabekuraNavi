@@ -5,9 +5,11 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
+import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.PointF;
 import android.graphics.RectF;
+import android.graphics.Paint.Align;
 import android.graphics.drawable.BitmapDrawable;
 import android.util.AttributeSet;
 import android.util.FloatMath;
@@ -16,7 +18,12 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
+import java.util.ArrayList;
+
 import jp.nfcgroup.tabekuranavi.R;
+import jp.nfcgroup.tabekuranavi.fragment.MapFragment;
+import jp.nfcgroup.tabekuranavi.fragment.StoreDialogFragment;
+import jp.nfcgroup.tabekuranavi.model.StoreColorVO;
 
 public class MapGestureSurfaceView extends SurfaceView implements SurfaceHolder.Callback,Runnable{
 
@@ -61,6 +68,13 @@ public class MapGestureSurfaceView extends SurfaceView implements SurfaceHolder.
 	private Point mMapOffset;
 	private float mMapScale;
 	
+	private Paint mShopPaint;
+	private Paint mTextPaint;
+	
+	private ArrayList<StoreColorVO> mColors;
+	
+	public MapFragment mParentFragment;
+	
 	public MapGestureSurfaceView(Context context) {
         super(context);
         
@@ -96,6 +110,14 @@ public class MapGestureSurfaceView extends SurfaceView implements SurfaceHolder.
         mMapMatrix = new Matrix();
         mMapOffset = new Point();
         mMapScale = 1.0f;
+        mShopPaint = new Paint();
+        mShopPaint.setAntiAlias(true);
+        
+        mTextPaint = new Paint();
+        mTextPaint.setColor(Color.WHITE);
+        mTextPaint.setTextSize(26);
+        mTextPaint.setAntiAlias(true);
+        mTextPaint.setTextAlign(Align.CENTER);
     }
 
     public void surfaceCreated(SurfaceHolder holder) {
@@ -133,6 +155,61 @@ public class MapGestureSurfaceView extends SurfaceView implements SurfaceHolder.
                 mMapImage.getIntrinsicHeight()+mMapOffset.y);
         mMapImage.draw(canvas);
         
+        for(int i=0;i<mShopRects.length;i++){
+            RectF rect = mShopRects[i];
+            StoreColorVO c = mColors.get(i);
+            mShopPaint.setColor(Color.argb(c.alpha, c.red, c.green, c.blue));
+            mShopPaint.setShadowLayer(3.0f, 2.0f, 2.0f,Color.argb(c.alpha, c.red, c.green, c.blue));
+            
+            if(i>=14 && i<=27){
+                canvas.save();
+                
+                Matrix mtrx = canvas.getMatrix();
+                
+                mtrx.preRotate(31.0f,
+                        (rect.right-rect.left)/2+rect.left+mMapOffset.x,
+                        (rect.bottom-rect.top)/2+rect.top+mMapOffset.y);
+                canvas.setMatrix(mtrx);
+                
+                canvas.drawRect(rect.left+mMapOffset.x,
+                        rect.top+mMapOffset.y,
+                        rect.right+mMapOffset.x,
+                        rect.bottom+mMapOffset.y,
+                        mShopPaint);
+                
+                canvas.restore();
+            }else if(i>=8 && i<= 13){
+                canvas.save();
+                
+                Matrix mtrx = canvas.getMatrix();
+                
+                mtrx.preRotate(-8.0f,
+                        (rect.right-rect.left)/2+rect.left+mMapOffset.x,
+                        (rect.bottom-rect.top)/2+rect.top+mMapOffset.y);
+                canvas.setMatrix(mtrx);
+                
+                canvas.drawRect(rect.left+mMapOffset.x,
+                        rect.top+mMapOffset.y,
+                        rect.right+mMapOffset.x,
+                        rect.bottom+mMapOffset.y,
+                        mShopPaint);
+                
+                canvas.restore();
+            }else{
+                
+                canvas.drawRect(rect.left+mMapOffset.x,
+                        rect.top+mMapOffset.y,
+                        rect.right+mMapOffset.x,
+                        rect.bottom+mMapOffset.y,
+                        mShopPaint);
+            }
+            
+            canvas.drawText(String.valueOf(i+1),
+                    (rect.right-rect.left)/2+rect.left+mMapOffset.x-2,
+                    (rect.bottom-rect.top)/2+rect.top+mMapOffset.y+8,
+                    mTextPaint);
+        }
+        
         canvas.restore();
         
     }
@@ -143,12 +220,33 @@ public class MapGestureSurfaceView extends SurfaceView implements SurfaceHolder.
         int historySize = event.getHistorySize();
         int pointSize = event.getPointerCount();
         
+        
+        
         if(pointSize == 1){
             if(historySize == 1){
                 float velocityX = event.getX(0) - event.getHistoricalX(0, 0);
                 float velocityY = event.getY(0) - event.getHistoricalY(0, 0);
                 
                 onDrag(velocityX,velocityY);
+            }else if(historySize == 0){
+                
+                for(int i=0;i<mShopRects.length;i++){
+                    RectF rect = mShopRects[i];
+                    RectF hitArea = new RectF(rect.left+mMapOffset.x,
+                            rect.top+mMapOffset.y,
+                            rect.right+mMapOffset.x,
+                            rect.bottom+mMapOffset.y);
+                    mMapMatrix.mapRect(hitArea);
+                    
+                    if(hitArea.contains(event.getX(), event.getY())){
+                        if(mParentFragment.getFragmentManager().findFragmentByTag("dialog") == null){
+                            StoreDialogFragment sdialog = StoreDialogFragment.newInstance(i);
+                            sdialog.show(mParentFragment.getFragmentManager(), "dialog");
+                        }
+                        
+                    }
+                }
+                
             }
         }else if(pointSize == 2){
             if(historySize == 1){
@@ -166,32 +264,24 @@ public class MapGestureSurfaceView extends SurfaceView implements SurfaceHolder.
     }
     
     private void onDrag(float velocityX,float velocityY){
-        
         RectF frame = new RectF(mMapOffset.x,
                 mMapOffset.y,
                 mMapImage.getIntrinsicWidth()+mMapOffset.x,
                 mMapImage.getIntrinsicHeight()+mMapOffset.y);
         mMapMatrix.mapRect(frame);
         
-        Log.d(TAG,frame.toShortString());
+        if(frame.left+velocityX > 0){
+            velocityX = -(frame.left+velocityX);
+        }else if(frame.right+velocityX < mScreenWidth){
+            velocityX = mScreenWidth - (frame.right+velocityX);
+        }
+        if(frame.top+velocityY > 0){
+            velocityY = -(frame.top+velocityY);
+        }else if(frame.bottom+velocityY < mScreenHeight){
+            velocityY = mScreenHeight - (frame.bottom+velocityY); 
+        }
         
-        int x = mMapOffset.x + (int)velocityX;
-        int rightX = (int) (mScreenWidth - frame.right);
-        int leftX = (int) frame.left;
-        if(leftX < 0) leftX = 0;
-        //Log.d(TAG,"x="+x+" minX="+minX+" maxX="+maxX);
-        if(x < rightX || x > leftX)velocityX = 0;
-        
-        int y = mMapOffset.y + (int)velocityY;
-        int bottomY = (int) (mScreenHeight - frame.bottom);
-        int topY = (int) frame.top;
-        if(topY < 0) topY = 0;
-        //Log.d(TAG,"y="+y+" minY="+minY+" maxY="+maxY);
-        if(y < bottomY || y > topY)velocityY = 0;
-        
-        mMapOffset.x += (int)velocityX;
-        mMapOffset.y += (int)velocityY;
-        
+        mMapOffset.offset((int)velocityX, (int)velocityY);
     }
     
     private void onPinch(float scale,PointF center){
@@ -200,9 +290,13 @@ public class MapGestureSurfaceView extends SurfaceView implements SurfaceHolder.
         
         mMapScale *= scale;
         
-        
-        
         mMapMatrix.postScale(scale, scale, center.x, center.y);
         
+        //写真枠が画面外に出たときにonDragの移動処理を利用して正しい位置に移動させてる
+        onDrag(0,0);
+    }
+    
+    public void updateColors(ArrayList<StoreColorVO> colors){
+        mColors = colors;
     }
 }
