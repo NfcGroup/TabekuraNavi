@@ -44,6 +44,7 @@ public class MainActivity extends BaseActivity implements OnClickListener {
         mKeywordHolder = new KeywordHodler(getApplicationContext(),(LinearLayout) findViewById(R.id.tag_holder),this);
         
         mChangeButton = (ImageButton) findViewById(R.id.change_view_button);
+        mChangeButton.setBackgroundResource(R.drawable.button_tomap);
         mChangeButton.setOnClickListener(this);
     }
     
