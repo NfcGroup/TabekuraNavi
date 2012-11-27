@@ -3,7 +3,6 @@ package jp.nfcgroup.tabekuranavi;
 import jp.nfcgroup.tabekuranavi.fragment.ListFragment;
 import jp.nfcgroup.tabekuranavi.fragment.MapFragment;
 import jp.nfcgroup.tabekuranavi.view.KeywordHodler;
-import jp.nfcgroup.tabekuranavi.view.MapGestureSurfaceView;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -31,13 +30,18 @@ public class MainActivity extends BaseActivity implements OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         
-        mManager = getFragmentManager();
-        FragmentTransaction ft = mManager.beginTransaction();
+        Bundle args = new Bundle();
+        args.putParcelable("finder", mStoreFinderParcelable);
         
         mMap = new MapFragment();
+        mMap.setArguments(args);
         mList = new ListFragment();
+        mList.setArguments(args);
+        
+        mManager = getFragmentManager();
+        FragmentTransaction ft = mManager.beginTransaction();        
         ft.add(R.id.frame_list, mList);
-        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
         ft.commit();
         mFragmentCase = 1;
         
@@ -50,6 +54,11 @@ public class MainActivity extends BaseActivity implements OnClickListener {
     @Override
     public void onResume() {
     	super.onResume();
+    }
+    
+    @Override
+    public void onPause() {
+    	super.onPause();
     }
     
     @Override
@@ -83,7 +92,7 @@ public class MainActivity extends BaseActivity implements OnClickListener {
     	} else if(nowFragment.equals(mList)) {
     		ft.replace(R.id.frame_list, mMap);
     	}
-    	ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+    	ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
     	ft.addToBackStack(null);
     	ft.commit();
     	

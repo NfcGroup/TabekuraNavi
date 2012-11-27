@@ -5,13 +5,13 @@ import java.util.ArrayList;
 import jp.nfcgroup.tabekuranavi.R;
 import jp.nfcgroup.tabekuranavi.model.StoreColorVO;
 import jp.nfcgroup.tabekuranavi.model.StoreFinder;
+import jp.nfcgroup.tabekuranavi.model.StoreFinderParcelable;
 import jp.nfcgroup.tabekuranavi.model.StoresData;
 import jp.nfcgroup.tabekuranavi.model.vo.StoreVO;
 import jp.nfcgroup.tabekuranavi.view.MapGestureSurfaceView;
 import android.app.Fragment;
 import android.graphics.RectF;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -33,7 +33,10 @@ public class MapFragment extends Fragment {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		
-        mStoreFinder = new StoreFinder(getActivity().getApplicationContext());
+		Bundle args = getArguments();
+        StoreFinderParcelable storeFinderParcelable = args.getParcelable("finder");
+        mStoreFinder = storeFinderParcelable.getStoreFinder();
+        
         initialize();
         updateViews();
 	}

@@ -8,13 +8,13 @@ import java.util.Map;
 import jp.nfcgroup.tabekuranavi.R;
 import jp.nfcgroup.tabekuranavi.adapter.StoreListAdapter;
 import jp.nfcgroup.tabekuranavi.model.StoreFinder;
+import jp.nfcgroup.tabekuranavi.model.StoreFinderParcelable;
 import jp.nfcgroup.tabekuranavi.model.vo.DishVO;
 import jp.nfcgroup.tabekuranavi.model.vo.StoreVO;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 
@@ -36,7 +36,9 @@ public class ListFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         
-        mStoreFinder = new StoreFinder(getActivity().getApplicationContext());
+        Bundle args = getArguments();
+        StoreFinderParcelable storeFinderParcelable = args.getParcelable("finder");
+        mStoreFinder = storeFinderParcelable.getStoreFinder();
         
         mListView = (ExpandableListView) getActivity().findViewById(R.id.listView);
         mListView.setGroupIndicator(null);
@@ -89,8 +91,7 @@ public class ListFragment extends Fragment {
     
     public void updateViews(){
         
-        //ArrayList<StoreVO> stores = mStoreFinder.getAndStores();
-        ArrayList<StoreVO> stores = mStoreFinder.getOrStores();
+        ArrayList<StoreVO> stores = mStoreFinder.getAndStores();
         
         parseStores(stores);
     }

@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 
 import jp.nfcgroup.tabekuranavi.model.StoreFinder;
+import jp.nfcgroup.tabekuranavi.model.StoreFinderParcelable;
 import jp.nfcgroup.tabekuranavi.util.NfcUtil;
 import jp.nfcgroup.tabekuranavi.view.KeywordHodler;
 import jp.nfcgroup.tabekuranavi.view.KeywordHodler.KeywordChangedListener;
@@ -29,6 +30,7 @@ public abstract class BaseActivity extends Activity implements KeywordChangedLis
 	private static final String TAG = "BaseActivity";
 	protected NfcAdapter mNfcAdapter;
     protected StoreFinder mStoreFinder;
+    protected StoreFinderParcelable mStoreFinderParcelable;
     protected KeywordHodler mKeywordHolder;
     protected Toast mToast;
     protected LayoutInflater mInflater;
@@ -38,6 +40,7 @@ public abstract class BaseActivity extends Activity implements KeywordChangedLis
         super.onCreate(savedInstanceState);
         
         mStoreFinder = new StoreFinder(getApplicationContext());
+        mStoreFinderParcelable = new StoreFinderParcelable(mStoreFinder);
        	mToast = new Toast(getApplicationContext());
        	mInflater = getLayoutInflater();
     }
@@ -104,8 +107,14 @@ public abstract class BaseActivity extends Activity implements KeywordChangedLis
     protected void onPause() {
         super.onPause();
         
-        //mStoreFinder.databaseClose();
         mNfcAdapter.disableForegroundDispatch(this);
+    }
+    
+    @Override
+    protected void onDestroy() {
+    	super.onDestroy();
+    	
+        mStoreFinder.databaseClose();
     }
     
     protected void onDiscoverd(Intent intent){
