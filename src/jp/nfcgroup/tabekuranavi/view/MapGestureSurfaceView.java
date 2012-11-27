@@ -193,25 +193,28 @@ public class MapGestureSurfaceView extends SurfaceView implements SurfaceHolder.
                 
                 onDrag(velocityX,velocityY);
                 
-            }else if(historySize == 0 && isDragging == false){
-                
-                for(int i=0;i<mShopRects.length;i++){
-                    RectF rect = mShopRects[i];
-                    RectF hitArea = new RectF(rect.left+mMapOffset.x,
-                            rect.top+mMapOffset.y,
-                            rect.right+mMapOffset.x,
-                            rect.bottom+mMapOffset.y);
-                    mMapMatrix.mapRect(hitArea);
-                    
-                    if(hitArea.contains(event.getX(), event.getY())){
-                        if(mParentFragment.getFragmentManager().findFragmentByTag("dialog") == null){
-                            StoreDialogFragment sdialog = StoreDialogFragment.newInstance(i);
-                            sdialog.show(mParentFragment.getFragmentManager(), "dialog");
-                        }
+            }else if(historySize == 0){
+                if(isDragging == false){
+                    for(int i=0;i<mShopRects.length;i++){
+                        RectF rect = mShopRects[i];
+                        RectF hitArea = new RectF(rect.left+mMapOffset.x,
+                                rect.top+mMapOffset.y,
+                                rect.right+mMapOffset.x,
+                                rect.bottom+mMapOffset.y);
+                        mMapMatrix.mapRect(hitArea);
                         
-                    }
-                } 
+                        if(hitArea.contains(event.getX(), event.getY())){
+                            if(mParentFragment.getFragmentManager().findFragmentByTag("dialog") == null){
+                                StoreDialogFragment sdialog = StoreDialogFragment.newInstance(i);
+                                sdialog.show(mParentFragment.getFragmentManager(), "dialog");
+                            }
+                        }
+                    } 
+                }else{
+                    onDrag(0,0);
+                }
             }
+            
             
             if(event.getAction() == MotionEvent.ACTION_DOWN){
                 isDragging = true;
@@ -241,14 +244,14 @@ public class MapGestureSurfaceView extends SurfaceView implements SurfaceHolder.
         mMapMatrix.mapRect(frame);
         
         if(frame.left+velocityX > 0){
-            velocityX = -(frame.left+velocityX);
+            velocityX -= (frame.left+velocityX);
         }else if(frame.right+velocityX < mScreenWidth){
-            velocityX = mScreenWidth - (frame.right+velocityX);
+            velocityX -= ((frame.right+velocityX) - mScreenWidth);
         }
         if(frame.top+velocityY > 0){
-            velocityY = -(frame.top+velocityY);
+            velocityY -= (frame.top+velocityY);
         }else if(frame.bottom+velocityY < mScreenHeight){
-            velocityY = mScreenHeight - (frame.bottom+velocityY); 
+            velocityY -= ((frame.bottom+velocityY) - mScreenHeight); 
         }
         
         mMapOffset.offset((int)velocityX, (int)velocityY);
