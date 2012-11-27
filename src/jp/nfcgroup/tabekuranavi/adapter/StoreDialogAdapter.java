@@ -1,14 +1,10 @@
 package jp.nfcgroup.tabekuranavi.adapter;
 
 import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import jp.nfcgroup.tabekuranavi.R;
 import jp.nfcgroup.tabekuranavi.model.vo.DishVO;
 import android.content.Context;
-import android.os.PatternMatcher;
-import android.text.SpannableString;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
