@@ -161,14 +161,14 @@ public class MapGestureSurfaceView extends SurfaceView implements SurfaceHolder.
             StoreColorVO c = mColors.get(i);
             mShopPaint.setColor(Color.argb(c.alpha, c.red, c.green, c.blue));
             
-            canvas.drawCircle(rect.left+24+mMapOffset.x,
-                    rect.top+24+mMapOffset.y,
+            canvas.drawCircle((int)(rect.left+24+mMapOffset.x),
+                    (int)(rect.top+24+mMapOffset.y),
                     24,
                     mShopPaint);
             
             canvas.drawText(String.valueOf(i+1),
-                    rect.left+24+mMapOffset.x,
-                    rect.top+24+mMapOffset.y+10,
+                    (int)(rect.left+24+mMapOffset.x),
+                    (int)(rect.top+24+mMapOffset.y+10),
                     mTextPaint);
         }
         
