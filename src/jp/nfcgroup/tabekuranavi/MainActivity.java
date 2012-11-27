@@ -48,6 +48,7 @@ public class MainActivity extends BaseActivity implements OnClickListener {
         mKeywordHolder = new KeywordHodler(getApplicationContext(),(LinearLayout) findViewById(R.id.tag_holder),this);
         
         mChangeButton = (ImageButton) findViewById(R.id.change_view_button);
+        mChangeButton.setBackgroundResource(R.drawable.button_tomap);
         mChangeButton.setOnClickListener(this);
     }
     
@@ -65,15 +66,6 @@ public class MainActivity extends BaseActivity implements OnClickListener {
     public boolean onCreateOptionsMenu(Menu menu) {
         return super.onCreateOptionsMenu(menu);
     }
-    
-    @Override
-	public boolean onTouchEvent(MotionEvent event) {
-    	boolean result = super.onTouchEvent(event);
-    	if(mFragmentCase == 0) {
-    		mMap.execute(event);
-    	}
-    	return result;
-	}
 
 	protected void onUpdateViews(){
     	if(mFragmentCase == 0) {
