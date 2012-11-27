@@ -5,23 +5,20 @@ import java.util.ArrayList;
 import jp.nfcgroup.tabekuranavi.R;
 import jp.nfcgroup.tabekuranavi.model.StoreColorVO;
 import jp.nfcgroup.tabekuranavi.model.StoreFinder;
-import jp.nfcgroup.tabekuranavi.model.StoresData;
+import jp.nfcgroup.tabekuranavi.model.StoreFinderParcelable;
 import jp.nfcgroup.tabekuranavi.model.vo.StoreVO;
 import jp.nfcgroup.tabekuranavi.view.MapGestureSurfaceView;
 import android.app.Fragment;
-import android.graphics.RectF;
 import android.os.Bundle;
-import android.util.Log;
-import android.util.SparseArray;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
 public class MapFragment extends Fragment {
-	private StoreFinder mStoreFinder;
-	private SparseArray<StoreColorVO> mStoreColors;
+	private static final String TAG = null;
+    private ArrayList<StoreColorVO> mStoreColors;
 	private MapGestureSurfaceView mMapGestureSurfaceView;
+	private StoreFinder mStoreFinder;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -33,7 +30,10 @@ public class MapFragment extends Fragment {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		
-        mStoreFinder = new StoreFinder(getActivity().getApplicationContext());
+		Bundle args = getArguments();
+        StoreFinderParcelable storeFinderParcelable = args.getParcelable("finder");
+        mStoreFinder = storeFinderParcelable.getStoreFinder();
+        
         initialize();
         updateViews();
 	}
@@ -51,10 +51,11 @@ public class MapFragment extends Fragment {
 	}
 	
 	public void updateViews() {
-        ArrayList<StoreVO> stores = mStoreFinder.getOrStores();
+	    //Log.d(TAG,"updateViews");
+        
+	    ArrayList<StoreVO> stores = mStoreFinder.getOrStores();
         parseStores(stores);
-		//mMapGestureSurfaceView.updateColors(mStoreColors);
-		mMapGestureSurfaceView.doDraw(mStoreColors);
+        mMapGestureSurfaceView.updateColors(mStoreColors);
 	}
 	
 	/**
@@ -62,13 +63,16 @@ public class MapFragment extends Fragment {
 	 */
 	private void initialize() {
         //mStoreFinder = new StoreFinder(getActivity().getApplicationContext());
-		mStoreColors = new SparseArray<StoreColorVO>();
+		mStoreColors = new ArrayList<StoreColorVO>();
 		
+		/*
 		StoresData storesData = StoresData.getInstance();
 		ArrayList<StoreVO> stores = storesData.getAllStore(getActivity().getApplicationContext());
 		parseStores(stores);
+		*/
 		
 		mMapGestureSurfaceView = (MapGestureSurfaceView)getActivity().findViewById(R.id.surfaceView);
+		mMapGestureSurfaceView.mParentFragment = this;
 		//mMapGestureSurfaceView.updateColors(mStoreColors);
 		
 		/*
@@ -95,7 +99,7 @@ public class MapFragment extends Fragment {
 			// 検索キーワードに該当する店舗か判定
 			int id = stores.get(i).id;
 			storeColor = createStoreColor(stores.get(i).weight);
-			mStoreColors.put(i, storeColor);
+			mStoreColors.add(i, storeColor);
 		}
 	}
 	
@@ -126,7 +130,7 @@ public class MapFragment extends Fragment {
 		}
 		return scvo;
 	}
-	
+	/*
 	public void execute(MotionEvent event) {
 		
 		if( event.getPointerCount() == 1){
@@ -186,4 +190,5 @@ public class MapFragment extends Fragment {
 			 }
 		}
 	}
+	*/
 }

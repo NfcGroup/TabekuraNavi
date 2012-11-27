@@ -114,5 +114,7 @@ public class StoresData {
 			// 店舗情報の作成済フラグをセット
 			mInitFlag = true;
 		}
+		db.databaseClose();
+		c.close();
 	}
 }

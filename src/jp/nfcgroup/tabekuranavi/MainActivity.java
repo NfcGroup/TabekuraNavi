@@ -3,7 +3,6 @@ package jp.nfcgroup.tabekuranavi;
 import jp.nfcgroup.tabekuranavi.fragment.ListFragment;
 import jp.nfcgroup.tabekuranavi.fragment.MapFragment;
 import jp.nfcgroup.tabekuranavi.view.KeywordHodler;
-import jp.nfcgroup.tabekuranavi.view.MapGestureSurfaceView;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -31,19 +30,25 @@ public class MainActivity extends BaseActivity implements OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         
-        mManager = getFragmentManager();
-        FragmentTransaction ft = mManager.beginTransaction();
+        Bundle args = new Bundle();
+        args.putParcelable("finder", mStoreFinderParcelable);
         
         mMap = new MapFragment();
+        mMap.setArguments(args);
         mList = new ListFragment();
+        mList.setArguments(args);
+        
+        mManager = getFragmentManager();
+        FragmentTransaction ft = mManager.beginTransaction();        
         ft.add(R.id.frame_list, mList);
-        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
         ft.commit();
         mFragmentCase = 1;
         
         mKeywordHolder = new KeywordHodler(getApplicationContext(),(LinearLayout) findViewById(R.id.tag_holder),this);
         
         mChangeButton = (ImageButton) findViewById(R.id.change_view_button);
+        mChangeButton.setBackgroundResource(R.drawable.button_tomap);
         mChangeButton.setOnClickListener(this);
     }
     
@@ -53,18 +58,14 @@ public class MainActivity extends BaseActivity implements OnClickListener {
     }
     
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        return super.onCreateOptionsMenu(menu);
+    public void onPause() {
+    	super.onPause();
     }
     
     @Override
-	public boolean onTouchEvent(MotionEvent event) {
-    	boolean result = super.onTouchEvent(event);
-    	if(mFragmentCase == 0) {
-    		mMap.execute(event);
-    	}
-    	return result;
-	}
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return super.onCreateOptionsMenu(menu);
+    }
 
 	protected void onUpdateViews(){
     	if(mFragmentCase == 0) {
@@ -83,7 +84,7 @@ public class MainActivity extends BaseActivity implements OnClickListener {
     	} else if(nowFragment.equals(mList)) {
     		ft.replace(R.id.frame_list, mMap);
     	}
-    	ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+    	ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
     	ft.addToBackStack(null);
     	ft.commit();
     	

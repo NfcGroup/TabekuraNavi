@@ -6,6 +6,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 
 public class TabekuraDatabase {
@@ -70,7 +71,7 @@ public class TabekuraDatabase {
 		}
 		// SQL文を作成
 		String sqlstr = String.format(SQL_STRING_FIND_STORES, tagCondition);
-		//Log.i(TAG, "SQL:"+sqlstr);
+		Log.i(TAG, "SQL:"+sqlstr);
 		Cursor cursor = mDb.rawQuery(sqlstr, null);
 		return cursor;
 	}
@@ -106,7 +107,7 @@ public class TabekuraDatabase {
 	}
 	
 	public void databaseClose() {
-		mDb.close();
-		mDbHelper.close();
+		//mDb.close();
+		//mDbHelper.close();
 	}
 }
