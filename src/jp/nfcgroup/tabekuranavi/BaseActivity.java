@@ -120,6 +120,8 @@ public abstract class BaseActivity extends Activity implements KeywordChangedLis
     
     protected void onDiscoverd(Intent intent){
         Parcelable[] parcelables = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
+        if(parcelables.length == 0) return;
+        
         NdefMessage message = (NdefMessage) parcelables[0];
         NdefRecord record = message.getRecords()[0];
         byte[] payload = record.getPayload();
