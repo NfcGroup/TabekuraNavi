@@ -119,7 +119,7 @@ public class StoreFinder implements Parcelable {
 		return getStores(false);
 	}
 	
-	public ArrayList<StoreVO> getStores(boolean flag) {
+	public ArrayList<StoreVO> getStores(boolean andFlag) {
 		int storeId = 0;
 		int sid = 0;
 		int dishId = 0;
@@ -154,6 +154,7 @@ public class StoreFinder implements Parcelable {
 		
 		if(size == 0) {
 			// 検索キーワード無しなので、全店舗返す
+			//Log.d(TAG, "getStores() -----------> Return all store info.");
 			return storeList;
 		}
 		
@@ -212,9 +213,13 @@ public class StoreFinder implements Parcelable {
 			int id = storeList.get(i).id;
 			if(mStoresInfo.get(id) > 0) {
 				//List表示はタグのANDをとる
-				if(mStoresInfo.get(id) < tags.size()) continue;
+				if(andFlag && mStoresInfo.get(id) < tags.size()) continue;
 				// さっき計測した重みをセット
 				storeList.get(i).weight = mStoresInfo.get(id);
+				mStores.add(storeList.get(i));
+			} else {
+				//List表示は該当なし店舗は無視
+				if(andFlag) continue;
 				mStores.add(storeList.get(i));
 			}
 		}

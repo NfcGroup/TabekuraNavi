@@ -7,6 +7,7 @@ import jp.nfcgroup.tabekuranavi.model.vo.DishVO;
 import jp.nfcgroup.tabekuranavi.model.vo.StoreVO;
 import android.content.Context;
 import android.database.Cursor;
+import android.util.Log;
 
 public class StoresData {
 	@SuppressWarnings("unused")
@@ -35,7 +36,8 @@ public class StoresData {
 	 */
 	public ArrayList<StoreVO> getAllStore(Context context) {
 		//Log.d(TAG, "store list size -> "+mStores.size());
-		if(!mInitFlag) initialize(context);
+		//if(!mInitFlag) initialize(context);
+		initialize(context);
 		
 		//for debug
 		/*
