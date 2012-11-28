@@ -86,10 +86,10 @@ public final class R {
         public static final int imageView1=0x7f070002;
         public static final int imageView2=0x7f070006;
         public static final int listView=0x7f070010;
+        public static final int mapView=0x7f070011;
         public static final int menu_settings=0x7f07001a;
         public static final int shop_subtitle=0x7f070017;
         public static final int shop_title=0x7f070016;
-        public static final int surfaceView=0x7f070011;
         public static final int tag_holder=0x7f070004;
         public static final int text_keyword=0x7f070012;
         public static final int toast_text=0x7f070019;

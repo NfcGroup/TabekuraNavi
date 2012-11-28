@@ -78,7 +78,7 @@ public class TabekuraDatabase {
 	/**
 	 * 指定したタグIDの店舗一覧を取得(OR検索)
 	 */
-	public Cursor findOrStores(int[] tagId) {
+    public Cursor findOrStores(int[] tagId) {
 		return findStores(tagId, false);
 	}
 	

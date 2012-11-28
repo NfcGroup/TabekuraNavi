@@ -3,7 +3,7 @@ package jp.nfcgroup.tabekuranavi;
 import jp.nfcgroup.tabekuranavi.fragment.ListFragment;
 import jp.nfcgroup.tabekuranavi.fragment.MapFragment;
 import jp.nfcgroup.tabekuranavi.view.KeywordHodler;
-import jp.nfcgroup.tabekuranavi.view.MapGestureSurfaceView;
+import jp.nfcgroup.tabekuranavi.view.MapView;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;

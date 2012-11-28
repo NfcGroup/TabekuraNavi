@@ -25,7 +25,7 @@ import jp.nfcgroup.tabekuranavi.fragment.MapFragment;
 import jp.nfcgroup.tabekuranavi.fragment.StoreDialogFragment;
 import jp.nfcgroup.tabekuranavi.model.StoreColorVO;
 
-public class MapGestureSurfaceView extends SurfaceView implements SurfaceHolder.Callback,Runnable{
+public class MapView extends SurfaceView implements SurfaceHolder.Callback,Runnable{
 
     private static final String TAG = "MapGestureSurfaceView";
     private static final RectF[] mShopRects = {
@@ -76,19 +76,19 @@ public class MapGestureSurfaceView extends SurfaceView implements SurfaceHolder.
 	public MapFragment mParentFragment;
     private boolean isDragging;
 	
-	public MapGestureSurfaceView(Context context) {
+	public MapView(Context context) {
         super(context);
         
         initialize();
     }
 	
-	public MapGestureSurfaceView(Context context, AttributeSet attrs) {
+	public MapView(Context context, AttributeSet attrs) {
         super(context, attrs);
         
         initialize();
     }
 	
-	public MapGestureSurfaceView(Context context, AttributeSet attrs, int defStyle) {
+	public MapView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         
         initialize();
@@ -106,7 +106,6 @@ public class MapGestureSurfaceView extends SurfaceView implements SurfaceHolder.
         
         mMapImage = new BitmapDrawable(getResources(),
                 BitmapFactory.decodeResource(getResources(), R.drawable.map));
-        Log.d(TAG,"imageWidth="+mMapImage.getIntrinsicWidth()+" imageHeight="+mMapImage.getIntrinsicHeight());
         
         mMapMatrix = new Matrix();
         mMapOffset = new Point();
@@ -148,7 +147,6 @@ public class MapGestureSurfaceView extends SurfaceView implements SurfaceHolder.
         
         canvas.drawColor(Color.parseColor("#000000"));
         
-        //mMapMatrix.postConcat(canvas.getMatrix());
         canvas.setMatrix(mMapMatrix);
         
         mMapImage.setBounds(mMapOffset.x,mMapOffset.y,
@@ -156,7 +154,7 @@ public class MapGestureSurfaceView extends SurfaceView implements SurfaceHolder.
                 mMapImage.getIntrinsicHeight()+mMapOffset.y);
         mMapImage.draw(canvas);
         
-        for(int i=0;i<mShopRects.length;i++){
+        for(int i=0;i<mColors.size();i++){
             RectF rect = mShopRects[i];
             StoreColorVO c = mColors.get(i);
             mShopPaint.setColor(Color.argb(c.alpha, c.red, c.green, c.blue));

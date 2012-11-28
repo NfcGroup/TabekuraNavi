@@ -5,8 +5,8 @@
     android:orientation="vertical"
     android:background="#fff3cf" >
      
-    <jp.nfcgroup.tabekuranavi.view.MapGestureSurfaceView
-        android:id="@+id/surfaceView"
+    <jp.nfcgroup.tabekuranavi.view.MapView
+        android:id="@+id/mapView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
     

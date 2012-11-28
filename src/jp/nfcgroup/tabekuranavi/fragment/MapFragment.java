@@ -5,8 +5,11 @@ import java.util.ArrayList;
 import jp.nfcgroup.tabekuranavi.R;
 import jp.nfcgroup.tabekuranavi.model.StoreColorVO;
 import jp.nfcgroup.tabekuranavi.model.StoreFinder;
+import jp.nfcgroup.tabekuranavi.model.StoresData;
 import jp.nfcgroup.tabekuranavi.model.vo.StoreVO;
-import jp.nfcgroup.tabekuranavi.view.MapGestureSurfaceView;
+import jp.nfcgroup.tabekuranavi.view.MapView;
+import jp.nfcgroup.tabekuranavi.view.GLMapView;
+
 import android.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,7 +20,7 @@ import android.view.ViewGroup;
 public class MapFragment extends Fragment {
 	private static final String TAG = null;
     private ArrayList<StoreColorVO> mStoreColors;
-	private MapGestureSurfaceView mMapGestureSurfaceView;
+	private MapView mMapView;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -52,7 +55,7 @@ public class MapFragment extends Fragment {
         
 	    ArrayList<StoreVO> stores = mStoreFinder.getOrStores();
         parseStores(stores);
-        mMapGestureSurfaceView.updateColors(mStoreColors);
+        mMapView.updateColors(mStoreColors);
         
         mStoreFinder.databaseClose();
 	}
@@ -63,16 +66,14 @@ public class MapFragment extends Fragment {
 	private void initialize() {
         //mStoreFinder = new StoreFinder(getActivity().getApplicationContext());
 		mStoreColors = new ArrayList<StoreColorVO>();
-		
 		/*
 		StoresData storesData = StoresData.getInstance();
 		ArrayList<StoreVO> stores = storesData.getAllStore(getActivity().getApplicationContext());
 		parseStores(stores);
 		*/
-		
-		mMapGestureSurfaceView = (MapGestureSurfaceView)getActivity().findViewById(R.id.surfaceView);
-		mMapGestureSurfaceView.mParentFragment = this;
-		//mMapGestureSurfaceView.updateColors(mStoreColors);
+		mMapView = (MapView)getActivity().findViewById(R.id.mapView);
+		mMapView.mParentFragment = this;
+		//mMapView.updateColors(mStoreColors);
 		
 		/*
 		Button dialogButton = (Button)getActivity().findViewById(R.id.button_dialog);
@@ -98,7 +99,7 @@ public class MapFragment extends Fragment {
 			// 検索キーワードに該当する店舗か判定
 			int id = stores.get(i).id;
 			storeColor = createStoreColor(stores.get(i).weight);
-			mStoreColors.add(i, storeColor);
+			mStoreColors.set(i, storeColor);
 		}
 	}
 	
