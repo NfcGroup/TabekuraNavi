@@ -7,11 +7,8 @@ import jp.nfcgroup.tabekuranavi.model.vo.StoreVO;
 import jp.nfcgroup.tabekuranavi.model.vo.TagVO;
 import android.content.Context;
 import android.database.Cursor;
-import android.util.Log;
-import android.util.SparseArray;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.util.Log;
 import android.util.SparseIntArray;
 
 public class StoreFinder implements Parcelable {
@@ -157,7 +154,7 @@ public class StoreFinder implements Parcelable {
 		
 		if(size == 0) {
 			// 検索キーワード無しなので、全店舗返す
-			Log.d(TAG, "getStores() -----------> Return all store info.");
+			//Log.d(TAG, "getStores() -----------> Return all store info.");
 			return storeList;
 		}
 		

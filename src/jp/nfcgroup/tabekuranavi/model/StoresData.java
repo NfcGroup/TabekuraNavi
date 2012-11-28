@@ -36,7 +36,8 @@ public class StoresData {
 	 */
 	public ArrayList<StoreVO> getAllStore(Context context) {
 		//Log.d(TAG, "store list size -> "+mStores.size());
-		if(!mInitFlag) initialize(context);
+		//if(!mInitFlag) initialize(context);
+		initialize(context);
 		
 		//for debug
 		/*
