@@ -19,6 +19,7 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.os.Vibrator;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -119,6 +120,8 @@ public abstract class BaseActivity extends Activity implements KeywordChangedLis
     
     protected void onDiscoverd(Intent intent){
         Parcelable[] parcelables = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
+        if(parcelables.length == 0) return;
+        
         NdefMessage message = (NdefMessage) parcelables[0];
         NdefRecord record = message.getRecords()[0];
         byte[] payload = record.getPayload();
@@ -155,6 +158,7 @@ public abstract class BaseActivity extends Activity implements KeywordChangedLis
     
     
     public void onKeywordChangedListener(int id) {
+        Log.d(TAG,"onKeywordChangedListener");
         mStoreFinder.deleteKeyword(id);
         
         onUpdateViews();
