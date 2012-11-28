@@ -7,6 +7,7 @@ import jp.nfcgroup.tabekuranavi.model.vo.DishVO;
 import jp.nfcgroup.tabekuranavi.model.vo.StoreVO;
 import android.content.Context;
 import android.database.Cursor;
+import android.util.Log;
 
 public class StoresData {
 	@SuppressWarnings("unused")

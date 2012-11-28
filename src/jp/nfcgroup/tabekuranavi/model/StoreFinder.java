@@ -9,6 +9,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 import android.util.SparseIntArray;
 
 public class StoreFinder implements Parcelable {
@@ -154,6 +155,7 @@ public class StoreFinder implements Parcelable {
 		
 		if(size == 0) {
 			// 検索キーワード無しなので、全店舗返す
+			Log.d(TAG, "getStores() -----------> Return all store info.");
 			return storeList;
 		}
 		
