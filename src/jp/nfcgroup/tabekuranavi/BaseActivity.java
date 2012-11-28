@@ -19,6 +19,7 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.os.Vibrator;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -155,6 +156,7 @@ public abstract class BaseActivity extends Activity implements KeywordChangedLis
     
     
     public void onKeywordChangedListener(int id) {
+        Log.d(TAG,"onKeywordChangedListener");
         mStoreFinder.deleteKeyword(id);
         
         onUpdateViews();

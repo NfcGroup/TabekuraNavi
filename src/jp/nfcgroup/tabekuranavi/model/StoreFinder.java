@@ -7,6 +7,8 @@ import jp.nfcgroup.tabekuranavi.model.vo.StoreVO;
 import jp.nfcgroup.tabekuranavi.model.vo.TagVO;
 import android.content.Context;
 import android.database.Cursor;
+import android.util.Log;
+import android.util.SparseArray;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;

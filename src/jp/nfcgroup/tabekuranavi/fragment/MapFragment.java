@@ -7,9 +7,12 @@ import jp.nfcgroup.tabekuranavi.model.StoreColorVO;
 import jp.nfcgroup.tabekuranavi.model.StoreFinder;
 import jp.nfcgroup.tabekuranavi.model.StoreFinderParcelable;
 import jp.nfcgroup.tabekuranavi.model.vo.StoreVO;
-import jp.nfcgroup.tabekuranavi.view.MapGestureSurfaceView;
+import jp.nfcgroup.tabekuranavi.view.MapView;
+import jp.nfcgroup.tabekuranavi.view.GLMapView;
+
 import android.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +20,7 @@ import android.view.ViewGroup;
 public class MapFragment extends Fragment {
 	private static final String TAG = null;
     private ArrayList<StoreColorVO> mStoreColors;
-	private MapGestureSurfaceView mMapGestureSurfaceView;
+	private MapView mMapView;
 	private StoreFinder mStoreFinder;
 
 	@Override
@@ -55,7 +58,7 @@ public class MapFragment extends Fragment {
         
 	    ArrayList<StoreVO> stores = mStoreFinder.getOrStores();
         parseStores(stores);
-        mMapGestureSurfaceView.updateColors(mStoreColors);
+        mMapView.updateColors(mStoreColors);
 	}
 	
 	/**
@@ -64,16 +67,14 @@ public class MapFragment extends Fragment {
 	private void initialize() {
         //mStoreFinder = new StoreFinder(getActivity().getApplicationContext());
 		mStoreColors = new ArrayList<StoreColorVO>();
-		
 		/*
 		StoresData storesData = StoresData.getInstance();
 		ArrayList<StoreVO> stores = storesData.getAllStore(getActivity().getApplicationContext());
 		parseStores(stores);
 		*/
-		
-		mMapGestureSurfaceView = (MapGestureSurfaceView)getActivity().findViewById(R.id.surfaceView);
-		mMapGestureSurfaceView.mParentFragment = this;
-		//mMapGestureSurfaceView.updateColors(mStoreColors);
+		mMapView = (MapView)getActivity().findViewById(R.id.mapView);
+		mMapView.mParentFragment = this;
+		//mMapView.updateColors(mStoreColors);
 		
 		/*
 		Button dialogButton = (Button)getActivity().findViewById(R.id.button_dialog);
@@ -95,9 +96,11 @@ public class MapFragment extends Fragment {
 		int size = stores.size();
 		StoreColorVO storeColor;
 		
+		mStoreColors.clear();
 		for(int i = 0; i < size; i++) {
 			// 検索キーワードに該当する店舗か判定
 			int id = stores.get(i).id;
+			Log.d(TAG,"weight="+stores.get(i).weight);
 			storeColor = createStoreColor(stores.get(i).weight);
 			mStoreColors.add(i, storeColor);
 		}
