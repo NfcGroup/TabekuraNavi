@@ -9,8 +9,11 @@ import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
 import android.util.SparseArray;
+import android.os.Parcel;
+import android.os.Parcelable;
+import android.util.SparseIntArray;
 
-public class StoreFinder {
+public class StoreFinder implements Parcelable {
     @SuppressWarnings("unused")
     private static final String TAG = StoreFinder.class.getSimpleName();
 	
@@ -18,7 +21,7 @@ public class StoreFinder {
 	private KeywordData mKeyword;
 	private TabekuraDatabase mDatabase;
 	private ArrayList<StoreVO> mStores;
-	private SparseArray<Integer> mStoresInfo;
+	private SparseIntArray mStoresInfo;
 	
 	@SuppressWarnings("unused")
 	private static final String[] DUMMY_TAG_DATA = {
@@ -30,7 +33,32 @@ public class StoreFinder {
 		mKeyword = KeywordData.getInstance();
 		mDatabase = new TabekuraDatabase(context);
 		mStores  = new ArrayList<StoreVO>();
-		mStoresInfo = new SparseArray<Integer>();
+		mStoresInfo = new SparseIntArray();
+	}
+	
+	public int describeContents() {
+		return 0;
+	}
+	
+	public void writeToParcel(Parcel dest, int flags) {
+		//dest.writeValue(mContext);
+	}
+	
+	public static final Parcelable.Creator<StoreFinder> CREATOR =
+			new Parcelable.Creator<StoreFinder>() {
+		
+		public StoreFinder createFromParcel(Parcel in) {
+			return new StoreFinder(in);
+		}
+		
+		public StoreFinder[] newArray(int size) {
+			return new StoreFinder[size];
+		}
+	};
+
+	private StoreFinder(Parcel in) {
+		//Object object = in.readValue(Context.class.getClassLoader());
+		//mContext = (Context)object;
 	}
 	
 	public boolean addKeyword(int tagId) {
@@ -93,7 +121,7 @@ public class StoreFinder {
 		return getStores(false);
 	}
 	
-	public ArrayList<StoreVO> getStores(boolean flag) {
+	public ArrayList<StoreVO> getStores(boolean andFlag) {
 		int storeId = 0;
 		int sid = 0;
 		int dishId = 0;
@@ -132,11 +160,7 @@ public class StoreFinder {
 		}
 		
 		// データベースから該当店舗を取得
-		if(flag) {
-			cursor = mDatabase.findAndStores(tagIds);
-		} else {
-			cursor = mDatabase.findOrStores(tagIds);
-		}
+		cursor = mDatabase.findOrStores(tagIds);
 		
 		// 店舗情報を作成
 		mStoresInfo.clear();
@@ -159,12 +183,21 @@ public class StoreFinder {
 					}
 				} else {
 					if(!cursor.isFirst()) {
+						if(weightCounter > storeWeight) storeWeight = weightCounter;
 						// 店舗IDと重みを記録	
 						mStoresInfo.put(storeId, storeWeight);
 						//Log.i(TAG, "store info put : id="+storeId+" weight="+storeWeight);
 						// 重みを初期化
 						storeWeight = 1;
+						weightCounter = 1;
 					}
+				}
+				
+				if(cursor.isLast()) {
+					if(weightCounter > storeWeight) storeWeight = weightCounter;
+					// 店舗IDと重みを記録	
+					mStoresInfo.put(sid, storeWeight);
+					//Log.i(TAG, "store info put : id="+sid+" weight="+storeWeight);
 				}
 				
 				// 商品IDを退避
@@ -179,9 +212,15 @@ public class StoreFinder {
 		// タグに該当する店舗のみ戻り値に登録
 		for(int i = 0; i < listSize; i++) {
 			int id = storeList.get(i).id;
-			if(mStoresInfo.get(id) != null) {
+			if(mStoresInfo.get(id) > 0) {
+				//List表示はタグのANDをとる
+				if(andFlag && mStoresInfo.get(id) < tags.size()) continue;
 				// さっき計測した重みをセット
 				storeList.get(i).weight = mStoresInfo.get(id);
+				mStores.add(storeList.get(i));
+			} else {
+				//List表示は該当なし店舗は無視
+				if(andFlag) continue;
 				mStores.add(storeList.get(i));
 			}
 		}
@@ -208,6 +247,7 @@ public class StoreFinder {
 	}
 	
 	public void databaseClose() {
+		mKeyword.clearKeyword();
 		mDatabase.databaseClose();
 	}
 	

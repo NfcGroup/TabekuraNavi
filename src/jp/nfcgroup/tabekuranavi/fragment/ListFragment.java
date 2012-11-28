@@ -8,13 +8,13 @@ import java.util.Map;
 import jp.nfcgroup.tabekuranavi.R;
 import jp.nfcgroup.tabekuranavi.adapter.StoreListAdapter;
 import jp.nfcgroup.tabekuranavi.model.StoreFinder;
+import jp.nfcgroup.tabekuranavi.model.StoreFinderParcelable;
 import jp.nfcgroup.tabekuranavi.model.vo.DishVO;
 import jp.nfcgroup.tabekuranavi.model.vo.StoreVO;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 
@@ -24,6 +24,7 @@ public class ListFragment extends Fragment {
     private static final String TAG = "ListFragment";
     
     private ExpandableListView mListView;
+    private StoreFinder mStoreFinder;
     
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -35,6 +36,9 @@ public class ListFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         
+        Bundle args = getArguments();
+        StoreFinderParcelable storeFinderParcelable = args.getParcelable("finder");
+        mStoreFinder = storeFinderParcelable.getStoreFinder();
         
         mListView = (ExpandableListView) getActivity().findViewById(R.id.listView);
         mListView.setGroupIndicator(null);
@@ -86,9 +90,8 @@ public class ListFragment extends Fragment {
     }
     
     public void updateViews(){
-        StoreFinder mStoreFinder = new StoreFinder(getActivity().getApplicationContext());
+        
         ArrayList<StoreVO> stores = mStoreFinder.getAndStores();
-        mStoreFinder.databaseClose();
         
         parseStores(stores);
     }
