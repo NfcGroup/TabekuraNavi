@@ -6,6 +6,7 @@ import java.util.Arrays;
 import jp.nfcgroup.tabekuranavi.model.StoreFinder;
 import jp.nfcgroup.tabekuranavi.model.StoreFinderParcelable;
 import jp.nfcgroup.tabekuranavi.util.NfcUtil;
+import jp.nfcgroup.tabekuranavi.view.CustomToast;
 import jp.nfcgroup.tabekuranavi.view.KeywordHodler;
 import jp.nfcgroup.tabekuranavi.view.KeywordHodler.KeywordChangedListener;
 import android.app.Activity;
@@ -20,21 +21,17 @@ import android.os.Parcelable;
 import android.os.Vibrator;
 import android.provider.Settings;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.View;
 import android.widget.Toast;
 
 public abstract class BaseActivity extends Activity implements KeywordChangedListener {
-    
     @SuppressWarnings("unused")
 	private static final String TAG = "BaseActivity";
+    
 	protected NfcAdapter mNfcAdapter;
     protected StoreFinder mStoreFinder;
     protected StoreFinderParcelable mStoreFinderParcelable;
     protected KeywordHodler mKeywordHolder;
-    protected Toast mToast;
-    protected LayoutInflater mInflater;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +39,6 @@ public abstract class BaseActivity extends Activity implements KeywordChangedLis
         
         mStoreFinder = new StoreFinder(getApplicationContext());
         mStoreFinderParcelable = new StoreFinderParcelable(mStoreFinder);
-       	mToast = new Toast(getApplicationContext());
-       	mInflater = getLayoutInflater();
     }
     
     @Override
@@ -147,10 +142,11 @@ public abstract class BaseActivity extends Activity implements KeywordChangedLis
         if(result) {
         	mKeywordHolder.addKeyword(mStoreFinder.getKeyword(id));
         } else {
-        	View view = mInflater.inflate(R.layout.toast, null);
-        	mToast.setView(view);
-        	mToast.setDuration(Toast.LENGTH_LONG);
-        	mToast.show();
+        	CustomToast toast = new CustomToast(this, R.layout.toast);
+        	toast.setDuration(Toast.LENGTH_LONG);
+        	//toast.setCustomText(getResources().getString(R.string.fail_add_tag_message));
+        	toast.setCustomText(getResources().getString(R.string.corruption_database));
+        	toast.show();
         }
     }
 
