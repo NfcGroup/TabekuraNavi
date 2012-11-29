@@ -144,8 +144,7 @@ public abstract class BaseActivity extends Activity implements KeywordChangedLis
         } else {
         	CustomToast toast = new CustomToast(this, R.layout.toast);
         	toast.setDuration(Toast.LENGTH_LONG);
-        	//toast.setCustomText(getResources().getString(R.string.fail_add_tag_message));
-        	toast.setCustomText(getResources().getString(R.string.corruption_database));
+        	toast.setCustomText(getResources().getString(R.string.fail_add_tag_message));
         	toast.show();
         }
     }
