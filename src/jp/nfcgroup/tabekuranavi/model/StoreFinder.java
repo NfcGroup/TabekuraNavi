@@ -3,6 +3,7 @@ package jp.nfcgroup.tabekuranavi.model;
 import java.util.ArrayList;
 
 import jp.nfcgroup.tabekuranavi.model.database.TabekuraDatabase;
+import jp.nfcgroup.tabekuranavi.model.vo.DishVO;
 import jp.nfcgroup.tabekuranavi.model.vo.StoreVO;
 import jp.nfcgroup.tabekuranavi.model.vo.TagVO;
 import android.content.Context;
@@ -147,8 +148,7 @@ public class StoreFinder implements Parcelable {
 		mStores.clear();
 
 		// 全店舗の初期情報を取得
-		StoresData sdat = StoresData.getInstance();
-		ArrayList<StoreVO> storeList = sdat.getAllStore(mContext);
+		ArrayList<StoreVO> storeList = getAllStore();
 		int listSize = storeList.size();
 		//Log.d(TAG, "listSize="+listSize);
 		
@@ -225,6 +225,71 @@ public class StoreFinder implements Parcelable {
 		}
 		
 		return mStores;
+	}
+	
+	/**
+	 * データベースから店舗情報を作成する
+	 * @param context
+	 */
+	public ArrayList<StoreVO> getAllStore() {
+		StoreVO svo = new StoreVO();
+		DishVO dvo = new DishVO();
+		int storeId = 0;
+		ArrayList<StoreVO> stores;
+		
+		// データベースから店舗情報を取得
+		Cursor c = mDatabase.fetchAllStores();
+		
+		// 店舗情報を初期化
+		stores = new ArrayList<StoreVO>();
+		svo.id = 0;
+		
+		if(c.moveToFirst()) {
+			do {
+				// 店舗IDを取得
+				storeId = c.getInt(c.getColumnIndex("shop_id"));
+				
+				// 店舗情報を作成
+				if(svo.id != storeId) {
+					if(!c.isFirst()) {
+						stores.add(svo);
+						svo = new StoreVO();
+					}
+					svo.id = storeId;
+					svo.name = c.getString(c.getColumnIndex("shop_name"));
+					String str = c.getString(c.getColumnIndex("shop_subtitle"));
+					svo.subTitle = (str != null) ? str : " ";
+					svo.weight = 0;
+					//Log.i(TAG, String.format("id:%d name:%s sub:%s weight:%d",
+					//		svo.id, svo.name, svo.subTitle, svo.weight));
+					
+					svo.dishes.clear();
+					dvo.id = c.getInt(c.getColumnIndex("dish_id"));
+					dvo.name = c.getString(c.getColumnIndex("dish_name"));
+					dvo.priceTo = c.getInt(c.getColumnIndex("dish_price_to"));
+					dvo.priceFrom = c.getInt(c.getColumnIndex("dish_price_from"));
+					dvo.price = dvo.priceFrom;
+					svo.dishes.add(dvo);
+					dvo = new DishVO();
+				} else {
+					dvo.id = c.getInt(c.getColumnIndex("dish_id"));
+					dvo.name = c.getString(c.getColumnIndex("dish_name"));
+					dvo.priceTo = c.getInt(c.getColumnIndex("dish_price_to"));
+					dvo.priceFrom = c.getInt(c.getColumnIndex("dish_price_from"));
+					dvo.price = dvo.priceFrom;
+					svo.dishes.add(dvo);
+					dvo = new DishVO();
+				}
+				
+				if(c.isLast()) {
+					stores.add(svo);
+				}
+			} while(c.moveToNext());
+			
+		}
+		c.close();
+		
+		return stores;
 	}
 	
 	public ArrayList<TagVO> getKeywords() {
