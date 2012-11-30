@@ -6,6 +6,7 @@ import java.util.Arrays;
 import jp.nfcgroup.tabekuranavi.model.StoreFinder;
 import jp.nfcgroup.tabekuranavi.model.StoreFinderParcelable;
 import jp.nfcgroup.tabekuranavi.util.NfcUtil;
+import jp.nfcgroup.tabekuranavi.util.TagInfo;
 import jp.nfcgroup.tabekuranavi.view.CustomToast;
 import jp.nfcgroup.tabekuranavi.view.KeywordHodler;
 import jp.nfcgroup.tabekuranavi.view.KeywordHodler.KeywordChangedListener;
@@ -65,21 +66,10 @@ public abstract class BaseActivity extends Activity implements KeywordChangedLis
 
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, new Intent(this, getClass()), 0);
         IntentFilter[] intentFilters = new IntentFilter[] {
-                new IntentFilter(NfcAdapter.ACTION_TAG_DISCOVERED),
+                //new IntentFilter(NfcAdapter.ACTION_TAG_DISCOVERED),
+                new IntentFilter(NfcAdapter.ACTION_TECH_DISCOVERED),
         };
-        String[][] techLists = {
-            {
-                android.nfc.tech.NfcA.class.getName(),
-                android.nfc.tech.NfcB.class.getName(),
-                android.nfc.tech.IsoDep.class.getName(),
-                android.nfc.tech.MifareClassic.class.getName(),
-                android.nfc.tech.MifareUltralight.class.getName(),
-                android.nfc.tech.NdefFormatable.class.getName(),
-                android.nfc.tech.NfcV.class.getName(),
-                android.nfc.tech.NfcF.class.getName(),
-            }
-        };
-        mNfcAdapter.enableForegroundDispatch(this, pendingIntent, intentFilters, techLists);
+        mNfcAdapter.enableForegroundDispatch(this, pendingIntent, intentFilters, TagInfo.TECH_LIST);
     }
     
     @Override
@@ -89,9 +79,13 @@ public abstract class BaseActivity extends Activity implements KeywordChangedLis
         if(intent != null){
             String action = intent.getAction();
             if(action != null){
+            	/*
                 if (action.equals(NfcAdapter.ACTION_NDEF_DISCOVERED) ||
                         action.equals(NfcAdapter.ACTION_TECH_DISCOVERED) ||
                         action.equals(NfcAdapter.ACTION_TAG_DISCOVERED)) {
+                */
+                if (action.equals(NfcAdapter.ACTION_TECH_DISCOVERED)) {
+                	
                 	((Vibrator)getSystemService(VIBRATOR_SERVICE)).vibrate(100);
                     onDiscoverd(intent);
                 }
@@ -130,22 +124,22 @@ public abstract class BaseActivity extends Activity implements KeywordChangedLis
                     
                 }catch(UnsupportedEncodingException e){
                     //showError("不正なタグ情報です\n"+e.getMessage());
+                	alertInvalidTag();
+                }catch(NumberFormatException e){
+                	alertInvalidTag();
                 }
             }
         }
     }
     
-    protected void onUpdateTags(String tagId){
+    protected void onUpdateTags(String tagId) throws NumberFormatException {
     	int id = Integer.parseInt(tagId);
         boolean result = mStoreFinder.addKeyword(id);
         
         if(result) {
         	mKeywordHolder.addKeyword(mStoreFinder.getKeyword(id));
         } else {
-        	CustomToast toast = new CustomToast(this, R.layout.toast);
-        	toast.setDuration(Toast.LENGTH_LONG);
-        	toast.setCustomText(getResources().getString(R.string.fail_add_tag_message));
-        	toast.show();
+        	alertInvalidTag();
         }
     }
 
@@ -157,5 +151,12 @@ public abstract class BaseActivity extends Activity implements KeywordChangedLis
         mStoreFinder.deleteKeyword(id);
         
         onUpdateViews();
+    }
+    
+    private void alertInvalidTag() {
+       	CustomToast toast = new CustomToast(this, R.layout.toast);
+       	toast.setDuration(Toast.LENGTH_LONG);
+       	toast.setCustomText(getResources().getString(R.string.fail_add_tag_message));
+       	toast.show();
     }
 }
