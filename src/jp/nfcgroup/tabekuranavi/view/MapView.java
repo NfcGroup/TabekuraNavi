@@ -1,15 +1,20 @@
 package jp.nfcgroup.tabekuranavi.view;
 
+import java.util.ArrayList;
+
+import jp.nfcgroup.tabekuranavi.R;
+import jp.nfcgroup.tabekuranavi.fragment.MapFragment;
+import jp.nfcgroup.tabekuranavi.model.StoreColorVO;
 import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.Paint.Align;
 import android.graphics.Point;
 import android.graphics.PointF;
 import android.graphics.RectF;
-import android.graphics.Paint.Align;
 import android.graphics.drawable.BitmapDrawable;
 import android.util.AttributeSet;
 import android.util.FloatMath;
@@ -17,13 +22,6 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-
-import java.util.ArrayList;
-
-import jp.nfcgroup.tabekuranavi.R;
-import jp.nfcgroup.tabekuranavi.fragment.MapFragment;
-import jp.nfcgroup.tabekuranavi.fragment.StoreDialogFragment;
-import jp.nfcgroup.tabekuranavi.model.StoreColorVO;
 
 public class MapView extends SurfaceView implements SurfaceHolder.Callback,Runnable{
 
@@ -203,8 +201,7 @@ public class MapView extends SurfaceView implements SurfaceHolder.Callback,Runna
                         
                         if(hitArea.contains(event.getX(), event.getY())){
                             if(mParentFragment.getFragmentManager().findFragmentByTag("dialog") == null){
-                                StoreDialogFragment sdialog = StoreDialogFragment.newInstance(i);
-                                sdialog.show(mParentFragment.getFragmentManager(), "dialog");
+                                mParentFragment.showStoreDialog(i);
                             }
                         }
                     } 
