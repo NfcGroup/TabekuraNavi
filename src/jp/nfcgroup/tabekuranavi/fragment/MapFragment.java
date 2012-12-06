@@ -8,20 +8,20 @@ import jp.nfcgroup.tabekuranavi.model.StoreFinder;
 import jp.nfcgroup.tabekuranavi.model.StoreFinderParcelable;
 import jp.nfcgroup.tabekuranavi.model.vo.StoreVO;
 import jp.nfcgroup.tabekuranavi.view.MapView;
-import jp.nfcgroup.tabekuranavi.view.GLMapView;
-
 import android.app.Fragment;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 public class MapFragment extends Fragment {
+	@SuppressWarnings("unused")
 	private static final String TAG = null;
+	
     private ArrayList<StoreColorVO> mStoreColors;
 	private MapView mMapView;
 	private StoreFinder mStoreFinder;
+	private ArrayList<StoreVO> mStoreInfo;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -44,20 +44,19 @@ public class MapFragment extends Fragment {
 	@Override
 	public void onResume() {
 		super.onResume();
-		//updateViews();
 	}
 	
 	@Override
 	public void onPause() {
 		super.onPause();
-		//mStoreFinder.databaseClose();
 	}
 	
 	public void updateViews() {
 	    //Log.d(TAG,"updateViews");
         
-	    ArrayList<StoreVO> stores = mStoreFinder.getOrStores();
-        parseStores(stores);
+		mStoreInfo.clear();
+	    mStoreInfo = mStoreFinder.getOrStores();
+        parseStores(mStoreInfo);
         mMapView.updateColors(mStoreColors);
 	}
 	
@@ -65,27 +64,10 @@ public class MapFragment extends Fragment {
 	 * 事前処理
 	 */
 	private void initialize() {
-        //mStoreFinder = new StoreFinder(getActivity().getApplicationContext());
 		mStoreColors = new ArrayList<StoreColorVO>();
-		/*
-		StoresData storesData = StoresData.getInstance();
-		ArrayList<StoreVO> stores = storesData.getAllStore(getActivity().getApplicationContext());
-		parseStores(stores);
-		*/
+		mStoreInfo = new ArrayList<StoreVO>();
 		mMapView = (MapView)getActivity().findViewById(R.id.mapView);
 		mMapView.mParentFragment = this;
-		//mMapView.updateColors(mStoreColors);
-		
-		/*
-		Button dialogButton = (Button)getActivity().findViewById(R.id.button_dialog);
-		dialogButton.setOnClickListener(new OnClickListener() {
-			
-			public void onClick(View v) {
-				StoreDialogFragment sdialog = StoreDialogFragment.newInstance(16);
-				sdialog.show(getFragmentManager(), "dialog");
-			}
-		});
-		*/
 	}
 	
 	/**
@@ -99,8 +81,7 @@ public class MapFragment extends Fragment {
 		mStoreColors.clear();
 		for(int i = 0; i < size; i++) {
 			// 検索キーワードに該当する店舗か判定
-			int id = stores.get(i).id;
-			Log.d(TAG,"weight="+stores.get(i).weight);
+			//Log.d(TAG,"weight="+stores.get(i).weight);
 			storeColor = createStoreColor(stores.get(i).weight);
 			mStoreColors.add(i, storeColor);
 		}
@@ -194,4 +175,9 @@ public class MapFragment extends Fragment {
 		}
 	}
 	*/
+	
+	public void showStoreDialog(int storeId) {
+		StoreDialogFragment dialog = StoreDialogFragment.newInstance(storeId, mStoreFinder);
+		dialog.show(getFragmentManager(), "dialog");
+	}
 }

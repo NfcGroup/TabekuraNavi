@@ -2,20 +2,22 @@ package jp.nfcgroup.tabekuranavi;
 
 import jp.nfcgroup.tabekuranavi.fragment.ListFragment;
 import jp.nfcgroup.tabekuranavi.fragment.MapFragment;
+import jp.nfcgroup.tabekuranavi.view.CustomToast;
 import jp.nfcgroup.tabekuranavi.view.KeywordHodler;
-import jp.nfcgroup.tabekuranavi.view.MapView;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.database.DatabaseErrorHandler;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
-public class MainActivity extends BaseActivity implements OnClickListener {
+public class MainActivity extends BaseActivity implements OnClickListener, DatabaseErrorHandler {
     
     @SuppressWarnings("unused")
     private static final String TAG = "ListActivity";
@@ -97,5 +99,13 @@ public class MainActivity extends BaseActivity implements OnClickListener {
     		mChangeButton.setBackgroundResource(R.drawable.button_tolist);
     		mFragmentCase = 0;
     	}
+    }
+    
+    public void onCorruption(SQLiteDatabase dbObj) {
+    	// データベースの破損を検出
+       	CustomToast toast = new CustomToast(this, R.layout.toast);
+       	toast.setDuration(Toast.LENGTH_LONG);
+       	toast.setCustomText(getResources().getString(R.string.corruption_database));
+       	toast.show();
     }
 }

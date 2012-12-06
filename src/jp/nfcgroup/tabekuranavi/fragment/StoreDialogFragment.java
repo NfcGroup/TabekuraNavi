@@ -4,7 +4,8 @@ import java.util.ArrayList;
 
 import jp.nfcgroup.tabekuranavi.R;
 import jp.nfcgroup.tabekuranavi.adapter.StoreDialogAdapter;
-import jp.nfcgroup.tabekuranavi.model.StoresData;
+import jp.nfcgroup.tabekuranavi.model.StoreFinder;
+import jp.nfcgroup.tabekuranavi.model.StoreFinderParcelable;
 import jp.nfcgroup.tabekuranavi.model.vo.DishVO;
 import jp.nfcgroup.tabekuranavi.model.vo.StoreVO;
 import android.app.Dialog;
@@ -20,12 +21,16 @@ import android.widget.TextView;
 
 public class StoreDialogFragment extends DialogFragment implements View.OnClickListener {
 	private int mStoreId;
+	private StoreFinder mStoreFinder;
 	
-	public static StoreDialogFragment newInstance(int id) {
+	public static StoreDialogFragment newInstance(int storeId, StoreFinder storeFinder) {
 		StoreDialogFragment f = new StoreDialogFragment();
 		
+		StoreFinderParcelable parcelable = new StoreFinderParcelable(storeFinder);
+		
 		Bundle args = new Bundle();
-		args.putInt("StoreId", id);
+		args.putInt("id", storeId);
+		args.putParcelable("finder", parcelable);
 		f.setArguments(args);
 		
 		return f;
@@ -34,7 +39,10 @@ public class StoreDialogFragment extends DialogFragment implements View.OnClickL
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		mStoreId = getArguments().getInt("StoreId");
+		StoreFinderParcelable parcelable = getArguments().getParcelable("finder");
+		
+		mStoreId = getArguments().getInt("id");
+		mStoreFinder = parcelable.getStoreFinder();
 	}
 	
 	@Override
@@ -44,7 +52,7 @@ public class StoreDialogFragment extends DialogFragment implements View.OnClickL
 		// ダイアログの内容を生成
 		ListView dialogList = (ListView)view.findViewById(R.id.dialog_list);
 		
-		ArrayList<StoreVO> stores = StoresData.getInstance().getAllStore(getActivity());
+		ArrayList<StoreVO> stores = mStoreFinder.getAllStore();
 		TextView dialogTitle = (TextView)view.findViewById(R.id.dialog_title);
 		TextView dialogSubTitle = (TextView)view.findViewById(R.id.dialog_subtitle);
 		dialogTitle.setText(stores.get(mStoreId).name);

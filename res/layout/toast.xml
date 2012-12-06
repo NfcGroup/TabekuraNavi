@@ -12,7 +12,6 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:textColor="#835a1b"
-        android:text="@string/fail_add_tag_message"
         />
     
 </LinearLayout>
